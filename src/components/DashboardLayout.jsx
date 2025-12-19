@@ -157,61 +157,103 @@
 
 
 
+// // src/components/DashboardLayout.jsx
+// import React, { useState, useEffect } from "react";
+// import Sidebar from "./Sidebar";
+// import { FaBars } from "react-icons/fa";
+
+// const DashboardLayout = ({ children }) => {
+//   const [showSidebar, setShowSidebar] = useState(false);
+//   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+//   useEffect(() => {
+//     const handleResize = () => {
+//       setIsMobile(window.innerWidth < 768);
+//     };
+
+//     window.addEventListener("resize", handleResize);
+//     return () => window.removeEventListener("resize", handleResize);
+//   }, []);
+
+//   // Close sidebar when route changes or on desktop
+//   useEffect(() => {
+//     if (!isMobile) {
+//       setShowSidebar(false);
+//     }
+//   }, [isMobile]);
+
+//   return (
+//     <>
+//       {/* Mobile Top Bar */}
+//       <div className="d-md-none bg-danger text-white p-2 d-flex align-items-center">
+//         <button
+//           className="btn btn-light btn-sm me-2"
+//           onClick={() => setShowSidebar(true)}
+//           aria-label="Toggle sidebar"
+//         >
+//           <FaBars />
+//         </button>
+//         <strong>ERP Panel</strong>
+//       </div>
+
+//       <div className="d-flex">
+//         <Sidebar show={showSidebar} onClose={() => setShowSidebar(false)} />
+
+//         {/* Main Content */}
+//         <main
+//           className="bg-light p-3 flex-grow-1"
+//           style={{
+//             marginLeft: isMobile ? 0 : "250px",
+//             minHeight: "100vh",
+//             transition: "margin-left 0.3s ease",
+//           }}
+//         >
+//           {children}
+//         </main>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default DashboardLayout;
+
+
+
+
+
 // src/components/DashboardLayout.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
+import { Outlet } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // Close sidebar when route changes or on desktop
-  useEffect(() => {
-    if (!isMobile) {
-      setShowSidebar(false);
-    }
-  }, [isMobile]);
 
   return (
-    <>
-      {/* Mobile Top Bar */}
-      <div className="d-md-none bg-danger text-white p-2 d-flex align-items-center">
-        <button
-          className="btn btn-light btn-sm me-2"
-          onClick={() => setShowSidebar(true)}
-          aria-label="Toggle sidebar"
-        >
-          <FaBars />
-        </button>
-        <strong>ERP Panel</strong>
-      </div>
+    <div className="d-flex">
+      <Sidebar show={showSidebar} onClose={() => setShowSidebar(false)} />
 
-      <div className="d-flex">
-        <Sidebar show={showSidebar} onClose={() => setShowSidebar(false)} />
+      <div
+        className="flex-grow-1"
+        style={{ marginLeft: window.innerWidth >= 768 ? 250 : 0 }}
+      >
+        {/* Mobile Top Bar */}
+        <div className="d-md-none p-2 bg-light shadow-sm">
+          <button
+            className="btn btn-outline-secondary"
+            onClick={() => setShowSidebar(true)}
+          >
+            <FaBars />
+          </button>
+        </div>
 
-        {/* Main Content */}
-        <main
-          className="bg-light p-3 flex-grow-1"
-          style={{
-            marginLeft: isMobile ? 0 : "250px",
-            minHeight: "100vh",
-            transition: "margin-left 0.3s ease",
-          }}
-        >
-          {children}
-        </main>
+        {/* MAIN CONTENT */}
+        <div className="p-3 bg-light" style={{ minHeight: "100vh" }}>
+          <Outlet />
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
