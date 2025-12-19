@@ -49,22 +49,11 @@ const TeacherDashboard = () => {
       {/* ===== STATS CARDS ===== */}
       <Row className="mb-4 g-3">
         {stats.map((stat, index) => (
-          <Col
-            key={index}
-            xl={3}
-            lg={4}
-            md={6}
-            sm={6}
-            xs={12}
-          >
-            <Card
-              className={`border-${stat.color} shadow-sm h-100`}
-            >
+          <Col key={index} xl={3} lg={4} md={6} sm={6} xs={12}>
+            <Card className={`border-${stat.color} shadow-sm h-100`}>
               <Card.Body className="text-center text-md-start">
                 <h6 className="text-muted">{stat.title}</h6>
-                <h2 className={`text-${stat.color} fw-bold`}>
-                  {stat.value}
-                </h2>
+                <h2 className={`text-${stat.color} fw-bold`}>{stat.value}</h2>
               </Card.Body>
             </Card>
           </Col>
@@ -76,12 +65,7 @@ const TeacherDashboard = () => {
         <Card.Body>
           <h5 className="mb-3 fw-semibold">Today's Schedule</h5>
 
-          <Table
-            responsive="sm"
-            bordered
-            hover
-            className="mb-0 small"
-          >
+          <Table responsive="sm" bordered hover className="mb-0 small">
             <thead className="table-light">
               <tr>
                 <th>Time</th>
@@ -112,11 +96,7 @@ const TeacherDashboard = () => {
             <Card.Body>
               <h5 className="mb-3 fw-semibold">My Tasks</h5>
 
-              <Table
-                bordered
-                responsive="sm"
-                className="mb-0 small"
-              >
+              <Table bordered responsive="sm" className="mb-0 small">
                 <thead className="table-light">
                   <tr>
                     <th>Task</th>
@@ -129,11 +109,7 @@ const TeacherDashboard = () => {
                       <td>{t.task}</td>
                       <td>
                         <Badge
-                          bg={
-                            t.status === "Completed"
-                              ? "success"
-                              : "warning"
-                          }
+                          bg={t.status === "Completed" ? "success" : "warning"}
                         >
                           {t.status}
                         </Badge>

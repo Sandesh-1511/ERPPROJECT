@@ -1,6 +1,6 @@
 // src/pages/office/NoticesPage.jsx
 import React from "react";
-import { Card, Button, ListGroup, Form } from "react-bootstrap";
+import { Card, Button, ListGroup, Form, Row, Col } from "react-bootstrap";
 
 const NoticesPage = () => {
   const notices = [

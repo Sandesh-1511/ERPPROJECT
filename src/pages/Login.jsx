@@ -37,7 +37,7 @@ function Login() {
         <h4 className="text-center mb-3">Education Portal Login</h4>
 
         {error && <div className="alert alert-danger">{error}</div>}
-
+            
         <input
           className="form-control mb-3"
           placeholder="Email"

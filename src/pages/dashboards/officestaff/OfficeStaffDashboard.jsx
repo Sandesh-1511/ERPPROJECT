@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Row, Col, Table, Button, Badge } from "react-bootstrap";
 
-const OfficeDashboard = () => {
+const OfficeStaffDashboard = () => {
   // 🔹 Summary cards
   const stats = [
     { title: "Total Students", value: 1240, color: "primary" },
@@ -119,4 +119,4 @@ const OfficeDashboard = () => {
   );
 };
 
-export default OfficeDashboard;
+export default OfficeStaffDashboard;

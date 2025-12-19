@@ -1,6 +1,6 @@
 // src/pages/office/CommunicationsLog.jsx
 import React from "react";
-import { Card, Table } from "react-bootstrap";
+import { Badge, Card, Table } from "react-bootstrap";
 
 const CommunicationsLog = () => {
   const logs = [

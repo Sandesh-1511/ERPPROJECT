@@ -129,7 +129,7 @@ const Sidebar = ({ show, onClose }) => {
   const menuByRole = {
     teacher: [
       { name: "Dashboard", path: "/dashboard/teacher" },
-      { name: "My Classes", path: "/teacher/classes" },
+      { name: "My Classes", path: "/dashboard/teacher/classes" },
       { name: "Students", path: "/teacher/students" },
       { name: "Assignments", path: "/teacher/assignments" },
       { name: "Study Materials", path: "/teacher/study-materials" },
