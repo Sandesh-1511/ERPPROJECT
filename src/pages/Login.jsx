@@ -13,7 +13,8 @@ function Login() {
     { email: "principal@nivid.edu", password: "123456", role: "principal", name: "Principal" },
     { email: "teacher@nivid.edu", password: "123456", role: "teacher", name: "Teacher" },
     { email: "library@nivid.edu", password: "123456", role: "librarian", name: "Librarian" },
-    { email: "accounts@nivid.edu", password: "123456", role: "accountant", name: "Accountant" }
+    { email: "accounts@nivid.edu", password: "123456", role: "accountant", name: "Accountant" },
+    { email: "student@nivid.edu", password: "123456", role: "student", name: "Student" }
   ];
 
   const handleLogin = () => {
