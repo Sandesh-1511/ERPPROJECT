@@ -131,7 +131,7 @@
 //               className="btn btn-light btn-sm align-self-end mb-3"
 //               onClick={onClose}
 //             >
-//               ✕
+//             ✕
 //             </button>
 //             {SidebarContent}
 //           </div>
@@ -256,21 +256,21 @@ const Sidebar = ({ show, onClose }) => {
   const menuByRole = {
     teacher: [
       { name: "Dashboard", path: "/dashboard/teacher" },
-      { name: "My Classes", path: "/dashboard/teacher/classes" },
-      { name: "Students", path: "/teacher/students" },
-      { name: "Assignments", path: "/teacher/assignments" },
-      { name: "Study Materials", path: "/teacher/study-materials" },
-      { name: "Exams & Marks", path: "/teacher/exams-marks" },
-      { name: "Timetable", path: "/teacher/timetable" },
-      { name: "Notices", path: "/teacher/notices" },
-      { name: "My Profile", path: "/teacher/profile" },
+      { name: "Teacher Profile Card", path: "/dashboard/teacher/teacher-profile-card" },
+      { name: "Teacher Stats", path: "/dashboard/teacher/teacher-stats" },
+      { name: "Timetable Section", path: "/dashboard/teacher/timetable-section" },
+      { name: "Courses Progress", path: "/dashboard/teacher/courses-progress" },
+      { name: "Attendance Summary", path: "/dashboard/teacher/attendance-summary" },
+      { name: "Assignment Module", path: "/dashboard/teacher/assignment-summary" },
+      { name: "Performance Analytics", path: "/dashboard/teacher/performance-analysis" },
+      { name: "Announcements", path: "/dashboard/teacher/annoucement" },
     ],
     librarian: [
       { name: "Dashboard", path: "/dashboard/librarian" },
-      { name: "Books", path: "/library/books" },
-      { name: "Issue Books", path: "/library/issue" },
-      { name: "Members", path: "/library/members" },
-      { name: "Reports", path: "/library/reports" },
+      { name: "Books", path: "/dashboard/librarian/books" },
+      { name: "Issue Books", path: "/dashboard/librarian/issue" },
+      { name: "Members", path: "/dashboard/librarian/members" },
+      { name: "Reports", path: "/dashboard/librarian/reports" },
     ],
     accountant: [
       { name: "Dashboard", path: "/dashboard/accountant" },
@@ -296,8 +296,8 @@ const Sidebar = ({ show, onClose }) => {
     ],
     principal: [
       { name: "Dashboard", path: "/dashboard/principal" },
-      { name: "Reports", path: "/principal/reports" },
-      { name: "Staff", path: "/principal/staff" },
+      { name: "Reports", path: "/dashboard/principal/reports" },
+      { name: "Staff", path: "/dashboard/principal/staff" },
     ],
     student: [
       { name: "Dashboard", path: "/dashboard/student" },

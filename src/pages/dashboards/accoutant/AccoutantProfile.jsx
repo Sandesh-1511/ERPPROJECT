@@ -2,7 +2,7 @@
 import React from "react";
 import { Card, Row, Col, Button, Form } from "react-bootstrap";
 
-const Profile = () => {
+const AccountantProfile = () => {
   return (
     <div className="container-fluid px-0">
       <h3 className="mb-4">My Profile</h3>
@@ -66,4 +66,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default AccountantProfile;

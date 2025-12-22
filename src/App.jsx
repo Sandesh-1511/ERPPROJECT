@@ -7,33 +7,43 @@ import PrincipalDashboard from "./pages/dashboards/principal/PrincipalDashboard"
 import TeacherDashboard from "./pages/dashboards/teacher/TeacherDashboard";
 import LibrarianDashboard from "./pages/dashboards/librarian/LibrarianDashboard";
 import AccountantDashboard from "./pages/dashboards/accoutant/AccountantDashboard";
-import MyClasses from "./pages/dashboards/teacher/MyClasses";
 import OfficeStaffDashboard from "./pages/dashboards/officestaff/OfficeStaffDashboard";
 import AdmissionsList from "./pages/dashboards/officestaff/AdmissionsList";
 import CertificateRequests from "./pages/dashboards/officestaff/CertificateRequests";
 import CommunicationsLog from "./pages/dashboards/officestaff/CommunicationsLog";
 import EnquiriesList from "./pages/dashboards/officestaff/EnquiriesList";
-// import NoticesPage from "./pages/dashboards/officestaff/NoticesPage";
 import ProfilePage from "./pages/dashboards/officestaff/ProfilePage";
 import ReportsPage from "./pages/dashboards/officestaff/ReportsPage";
 import StudentsList from "./pages/dashboards/officestaff/StudentsList";
 import NoticesPage from "./pages/dashboards/officestaff/NoticesPage";
+import Books from "./pages/dashboards/librarian/Books";
+import IssueBooks from "./pages/dashboards/librarian/IssueBooks";
+import Members from "./pages/dashboards/librarian/Members";
+import Reports from "./pages/dashboards/librarian/Reports";
+import PrincipalReports from "./pages/dashboards/principal/PrincipalReports";
+import PrincipalStaff from "./pages/dashboards/principal/PrincipalStaff";
+import TeacherProfileCard from "./pages/dashboards/teacher/TeacherProfileCard";
+import TeacherStats from "./pages/dashboards/teacher/TeacherStats";
+import TimetableSection from "./pages/dashboards/teacher/TimetableSection";
+import CourseProgress from "./pages/dashboards/teacher/CourseProgress";
+import AttendanceSummary from "./pages/dashboards/teacher/AttendanceSummary";
+import AssignmentModule from "./pages/dashboards/teacher/AssignmentModule";
+import PerformanceAnalytics from "./pages/dashboards/teacher/PerformanceAnalytics";
+import Announcements from "./pages/dashboards/teacher/Announcements";
 import FeeCollection from "./pages/dashboards/accoutant/FeeCollection";
 import Expenses from "./pages/dashboards/accoutant/Expenses";
 import SalaryManagement from "./pages/dashboards/accoutant/SalaryManagement";
 import Invoices from "./pages/dashboards/accoutant/Invoices";
-import Reports from "./pages/dashboards/accoutant/Reports";
-import Receipts from "./pages/dashboards/accoutant/Receipts";
 import DueReminders from "./pages/dashboards/accoutant/DueReminders";
-import Profile from "./pages/dashboards/accoutant/Profile";
+import AccountantProfile from "./pages/dashboards/accoutant/AccoutantProfile";
+import Receipts from "./pages/dashboards/accoutant/Receipts";
 import StudentDashboard from "./pages/dashboards/students/StudentDashboard";
 import StudentDocuments from "./pages/dashboards/students/StudentDocuments";
-import StudentForm from "./pages/dashboards/students/StudentForm";
 import StudentGuardians from "./pages/dashboards/students/StudentGuardians";
 import StudentList from "./pages/dashboards/students/StudentList";
+import StudentForm from "./pages/dashboards/students/StudentForm";
 import StudentProfile from "./pages/dashboards/students/StudentProfile";
 import FeesSection from "./pages/dashboards/students/FeesSection";
-import TimetableSection from "./pages/dashboards/students/TimetableSection";
 import SyllabusStatus from "./pages/dashboards/students/SyllabusStatus";
 import LeaveSection from "./pages/dashboards/students/LeaveSection";
 import AttendanceCalendar from "./pages/dashboards/students/AttendanceCalendar";
@@ -45,6 +55,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
 
+        {/* OfficeStaffDashboard */}
         <Route
           path="/dashboard/office"
           element={
@@ -64,6 +75,7 @@ function App() {
           <Route path="profile" element={<ProfilePage />} />
         </Route>
 
+        {/* Principal */}
         <Route
           path="/dashboard/principal"
           element={
@@ -73,6 +85,7 @@ function App() {
           }
         ></Route>
 
+        {/* Teacher */}
         <Route
           path="/dashboard/teacher"
           element={
@@ -82,20 +95,33 @@ function App() {
           }
         >
           <Route index element={<TeacherDashboard />} />
-          <Route path="classes" element={<MyClasses />} />
+          <Route path="teacher-profile-card" element={<TeacherProfileCard/>}/>
+          <Route path="teacher-stats" element={<TeacherStats/>}/>
+          <Route path="timetable-section" element={<TimetableSection/>}/>
+          <Route path="courses-progress" element={<CourseProgress/>}/>
+          <Route path="attendance-summary" element={<AttendanceSummary/>}/>
+          <Route path="assignment-summary" element={<AssignmentModule/>}/>
+          <Route path="performance-analysis" element={<PerformanceAnalytics/>}/>
+          <Route path="annoucement" element={<Announcements/>}/>
         </Route>
 
+        {/* Librarian */}
         <Route
           path="/dashboard/librarian"
           element={
             <ProtectedRoute role="librarian">
-              <DashboardLayout>
-                <LibrarianDashboard />
-              </DashboardLayout>
+              <DashboardLayout/>
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<LibrarianDashboard/>}/>
+          <Route path="books" element={<Books />} />
+          <Route path="issue" element={<IssueBooks />} />
+          <Route path="members" element={<Members />} />
+          <Route path="reports" element={<Reports />} />
+        </Route>
 
+        {/* Accountant */}
         <Route
           path="/dashboard/accountant"
           element={
@@ -112,7 +138,7 @@ function App() {
           <Route path="reports" element={<Reports />} />
           <Route path="receipts" element={<Receipts />} />
           <Route path="reminders" element={<DueReminders />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile" element={<AccountantProfile />} />
         </Route>
 
         <Route
