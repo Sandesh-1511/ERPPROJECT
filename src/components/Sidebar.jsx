@@ -302,9 +302,8 @@ const Sidebar = ({ show, onClose }) => {
     student: [
       { name: "Dashboard", path: "/dashboard/student" },
       { name: "Student Documents", path: "/dashboard/student/student-documents" },
-      { name: "Student Form", path: "/dashboard/student/student-form" },
+      { name: "Study materail", path: "/dashboard/student/student-StudyMaterialSection"},
       { name: "Student Guardians", path: "/dashboard/student/student-guardians" },
-      { name: "Student List", path: "/dashboard/student/student-list" },
       { name: "Student Profile", path: "/dashboard/student/student-profile" },
       { name: "Fees", path: "/dashboard/student/student-fees" },
       { name: "Timetable", path: "/dashboard/student/student-timetable" },
