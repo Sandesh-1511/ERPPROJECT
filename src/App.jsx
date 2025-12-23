@@ -48,12 +48,26 @@ import SyllabusStatus from "./pages/dashboards/students/SyllabusStatus";
 import LeaveSection from "./pages/dashboards/students/LeaveSection";
 import AttendanceCalendar from "./pages/dashboards/students/AttendanceCalendar";
 import LibrarySection from "./pages/dashboards/students/LibrarySection";
+import Student_List from "./pages/dashboards/teacher/Student_List";
+import MyProfile from "./pages/MyProfile";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+
+        {/* Common Profile Page */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="profile" element={<MyProfile />} />
+        </Route>
 
         {/* OfficeStaffDashboard */}
         <Route
@@ -83,7 +97,10 @@ function App() {
               <DashboardLayout />
             </ProtectedRoute>
           }
-        ></Route>
+        >
+          <Route index element={<PrincipalDashboard />} />
+          <Route path="profile" element={<MyProfile />} />
+        </Route>
 
         {/* Teacher */}
         <Route
@@ -95,14 +112,18 @@ function App() {
           }
         >
           <Route index element={<TeacherDashboard />} />
-          <Route path="teacher-profile-card" element={<TeacherProfileCard/>}/>
-          <Route path="teacher-stats" element={<TeacherStats/>}/>
-          <Route path="timetable-section" element={<TimetableSection/>}/>
-          <Route path="courses-progress" element={<CourseProgress/>}/>
-          <Route path="attendance-summary" element={<AttendanceSummary/>}/>
-          <Route path="assignment-summary" element={<AssignmentModule/>}/>
-          <Route path="performance-analysis" element={<PerformanceAnalytics/>}/>
-          <Route path="annoucement" element={<Announcements/>}/>
+          <Route path="teacher-profile-card" element={<TeacherProfileCard />} />
+          <Route path="teacher-stats" element={<TeacherStats />} />
+          <Route path="timetable-section" element={<TimetableSection />} />
+          <Route path="courses-progress" element={<CourseProgress />} />
+          <Route path="attendance-summary" element={<AttendanceSummary />} />
+          <Route path="assignment-summary" element={<AssignmentModule />} />
+          <Route
+            path="performance-analysis"
+            element={<PerformanceAnalytics />}
+          />
+          <Route path="annoucement" element={<Announcements />} />
+          <Route path="student-list" element={<Student_List />} />
         </Route>
 
         {/* Librarian */}
@@ -110,11 +131,11 @@ function App() {
           path="/dashboard/librarian"
           element={
             <ProtectedRoute role="librarian">
-              <DashboardLayout/>
+              <DashboardLayout />
             </ProtectedRoute>
           }
         >
-          <Route index element={<LibrarianDashboard/>}/>
+          <Route index element={<LibrarianDashboard />} />
           <Route path="books" element={<Books />} />
           <Route path="issue" element={<IssueBooks />} />
           <Route path="members" element={<Members />} />
@@ -123,9 +144,9 @@ function App() {
 
         {/* Accountant */}
         <Route
-          path="/dashboard/accountant"
+          path="/dashboard/accounts_staff"
           element={
-            <ProtectedRoute role="accountant">
+            <ProtectedRoute role="accounts_staff">
               <DashboardLayout />
             </ProtectedRoute>
           }
@@ -138,7 +159,7 @@ function App() {
           <Route path="reports" element={<Reports />} />
           <Route path="receipts" element={<Receipts />} />
           <Route path="reminders" element={<DueReminders />} />
-          <Route path="profile" element={<AccountantProfile />} />
+          <Route path="profile" element={<MyProfile />} />
         </Route>
 
         <Route
@@ -149,18 +170,18 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<StudentDashboard/>}/>
-          <Route path="student-documents" element={<StudentDocuments/>}/>
-          <Route path="student-form" element={<StudentForm/>}/>
-          <Route path="student-guardians" element={<StudentGuardians/>}/>
-          <Route path="student-list" element={<StudentList/>}/>
-          <Route path="student-profile" element={<StudentProfile/>}/>
-          <Route path="student-fees" element={<FeesSection/>}/>
-          <Route path="student-timetable" element={<TimetableSection/>}/>
-          <Route path="student-syllabus" element={<SyllabusStatus/>}/>
-          <Route path="student-leave" element={<LeaveSection/>}/>
-          <Route path="student-attendance" element={<AttendanceCalendar/>}/>
-          <Route path="student-library" element={<LibrarySection/>}/>
+          <Route index element={<StudentDashboard />} />
+          <Route path="student-documents" element={<StudentDocuments />} />
+          <Route path="student-form" element={<StudentForm />} />
+          <Route path="student-guardians" element={<StudentGuardians />} />
+          <Route path="student-list" element={<StudentList />} />
+          <Route path="student-profile" element={<StudentProfile />} />
+          <Route path="student-fees" element={<FeesSection />} />
+          <Route path="student-timetable" element={<TimetableSection />} />
+          <Route path="student-syllabus" element={<SyllabusStatus />} />
+          <Route path="student-leave" element={<LeaveSection />} />
+          <Route path="student-attendance" element={<AttendanceCalendar />} />
+          <Route path="student-library" element={<LibrarySection />} />
         </Route>
       </Routes>
     </BrowserRouter>
