@@ -576,7 +576,7 @@ const Sidebar = ({ show, onClose }) => {
       { name: "Dashboard", path: "/dashboard/principal" },
       { name: "Reports", path: "/dashboard/principal/reports" },
       { name: "Staff", path: "/dashboard/principal/staff" },
-      { name: "My Profile", path: "/dashboard/profile" }
+      { name: "My Profile", path: "/dashboard/profile" },
     ],
     teacher: [
       { name: "Dashboard", path: "/dashboard/teacher" },
@@ -585,7 +585,7 @@ const Sidebar = ({ show, onClose }) => {
       { name: "Assignments", path: "/dashboard/teacher/assignments" },
       { name: "Timetable", path: "/dashboard/teacher/timetable" },
       { name: "Profile", path: "/dashboard/teacher/profile" },
-      { name: "My Profile", path: "/dashboard/profile" }
+      { name: "My Profile", path: "/dashboard/profile" },
     ],
     librarian: [
       { name: "Dashboard", path: "/dashboard/librarian" },
@@ -594,12 +594,13 @@ const Sidebar = ({ show, onClose }) => {
       { name: "Members", path: "/dashboard/librarian/members" },
       { name: "Reports", path: "/dashboard/librarian/reports" },
     ],
-    accountant: [
+    accounts_staff: [
       { name: "Dashboard", path: "/dashboard/accounts_staff" },
       { name: "Fees", path: "/dashboard/accountant/fees" },
       { name: "Expenses", path: "/dashboard/accountant/expenses" },
       { name: "Salary", path: "/dashboard/accountant/salary" },
       { name: "Reports", path: "/dashboard/accountant/reports" },
+      { name: "My Profile", path: "/dashboard/profile" },
     ],
   };
 

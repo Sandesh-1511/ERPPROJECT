@@ -40,16 +40,16 @@ import Receipts from "./pages/dashboards/accoutant/Receipts";
 import StudentDashboard from "./pages/dashboards/students/StudentDashboard";
 import StudentDocuments from "./pages/dashboards/students/StudentDocuments";
 import StudentGuardians from "./pages/dashboards/students/StudentGuardians";
-import StudentList from "./pages/dashboards/students/StudentList";
-import StudentForm from "./pages/dashboards/students/StudentForm";
+import StudentForm from "./pages/dashboards/students/StudyMaterialSection";
 import StudentProfile from "./pages/dashboards/students/StudentProfile";
 import FeesSection from "./pages/dashboards/students/FeesSection";
 import SyllabusStatus from "./pages/dashboards/students/SyllabusStatus";
 import LeaveSection from "./pages/dashboards/students/LeaveSection";
 import AttendanceCalendar from "./pages/dashboards/students/AttendanceCalendar";
 import LibrarySection from "./pages/dashboards/students/LibrarySection";
-import Student_List from "./pages/dashboards/teacher/Student_List";
+import StudyMaterialSection from "./pages/dashboards/students/StudyMaterialSection";
 import MyProfile from "./pages/MyProfile";
+import Student_List from "./pages/dashboards/teacher/Student_List";
 
 function App() {
   return (
@@ -172,9 +172,11 @@ function App() {
         >
           <Route index element={<StudentDashboard />} />
           <Route path="student-documents" element={<StudentDocuments />} />
-          <Route path="student-form" element={<StudentForm />} />
+          <Route
+            path="student-StudyMaterialSection"
+            element={<StudyMaterialSection />}
+          />
           <Route path="student-guardians" element={<StudentGuardians />} />
-          <Route path="student-list" element={<StudentList />} />
           <Route path="student-profile" element={<StudentProfile />} />
           <Route path="student-fees" element={<FeesSection />} />
           <Route path="student-timetable" element={<TimetableSection />} />
