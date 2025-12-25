@@ -103,12 +103,12 @@ function App() {
           }
         >
           <Route index element={<PrincipalDashboard />} />
-           <Route path="students" element={<PrincipalStudents />} />
-  <Route path="fees" element={<PrincipalFees />} />
-  <Route path="exams" element={<PrincipalExams />} />
-  <Route path="academic" element={<PrincipalAcademic />} />
-  <Route path="staff" element={<PrincipalStaff />} />
-  <Route path="reports" element={<PrincipalReports />} />
+          <Route path="students" element={<PrincipalStudents />} />
+          <Route path="fees" element={<PrincipalFees />} />
+          <Route path="exams" element={<PrincipalExams />} />
+          <Route path="academic" element={<PrincipalAcademic />} />
+          <Route path="staff" element={<PrincipalStaff />} />
+          <Route path="reports" element={<PrincipalReports />} />
           <Route path="principal-profile" element={<MyProfile />} />
         </Route>
 
