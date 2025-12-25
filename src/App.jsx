@@ -50,6 +50,10 @@ import LibrarySection from "./pages/dashboards/students/LibrarySection";
 import StudyMaterialSection from "./pages/dashboards/students/StudyMaterialSection";
 import MyProfile from "./pages/MyProfile";
 import Student_List from "./pages/dashboards/teacher/Student_List";
+import PrincipalStudents from "./pages/dashboards/principal/PrincipalStudents";
+import PrincipalFees from "./pages/dashboards/principal/PrincipalFees";
+import PrincipalExams from "./pages/dashboards/principal/PrincipalExams";
+import PrincipalAcademic from "./pages/dashboards/principal/PrincipalAcademic";
 
 function App() {
   return (
@@ -99,7 +103,13 @@ function App() {
           }
         >
           <Route index element={<PrincipalDashboard />} />
-          <Route path="profile" element={<MyProfile />} />
+           <Route path="students" element={<PrincipalStudents />} />
+  <Route path="fees" element={<PrincipalFees />} />
+  <Route path="exams" element={<PrincipalExams />} />
+  <Route path="academic" element={<PrincipalAcademic />} />
+  <Route path="staff" element={<PrincipalStaff />} />
+  <Route path="reports" element={<PrincipalReports />} />
+          <Route path="principal-profile" element={<MyProfile />} />
         </Route>
 
         {/* Teacher */}
