@@ -54,6 +54,7 @@ import PrincipalStudents from "./pages/dashboards/principal/PrincipalStudents";
 import PrincipalFees from "./pages/dashboards/principal/PrincipalFees";
 import PrincipalExams from "./pages/dashboards/principal/PrincipalExams";
 import PrincipalAcademic from "./pages/dashboards/principal/PrincipalAcademic";
+import ViewStudent from "./pages/dashboards/principal/ViewStudent";
 
 function App() {
   return (
@@ -110,6 +111,7 @@ function App() {
           <Route path="staff" element={<PrincipalStaff />} />
           <Route path="reports" element={<PrincipalReports />} />
           <Route path="principal-profile" element={<MyProfile />} />
+          <Route path="student-view/:id" element={<ViewStudent />} />
         </Route>
 
         {/* Teacher */}
