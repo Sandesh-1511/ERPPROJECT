@@ -152,8 +152,9 @@ const Sidebar = ({ show, onClose }) => {
       { name: "Examinations", path: "/dashboard/principal/exams", icon: "file-text" },
       { name: "Academic", path: "/dashboard/principal/academic", icon: "book" },
       { name: "Staff", path: "/dashboard/principal/staff", icon: "person-badge" },
+      { name: "Departments", path: "/dashboard/principal/departments"},
       { name: "Reports", path: "/dashboard/principal/reports", icon: "graph-up" },
-      { name: "profile", path: "/dashboard/principal/principal-profile", icon: "gear" },
+      { name: "Profile", path: "/dashboard/principal/principal-profile", icon: "gear" },
     ],
     teacher: [
       { name: "Dashboard", path: "/dashboard/teacher", icon: "speedometer2" },

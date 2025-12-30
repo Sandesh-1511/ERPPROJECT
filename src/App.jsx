@@ -55,6 +55,13 @@ import PrincipalFees from "./pages/dashboards/principal/PrincipalFees";
 import PrincipalExams from "./pages/dashboards/principal/PrincipalExams";
 import PrincipalAcademic from "./pages/dashboards/principal/PrincipalAcademic";
 import ViewStudent from "./pages/dashboards/principal/ViewStudent";
+import PrincipalDeptsAndPrograms from "./pages/dashboards/principal/PrincipalDeptsAndPrograms";
+import CreateDepartment from "./pages/dashboards/principal/CreateDepartment";
+import DepartmentList from "./pages/dashboards/principal/DepartmentList";
+import EditDepartment from "./pages/dashboards/principal/EditDepartment";
+import ProgramList from "./pages/dashboards/principal/ProgramList";
+import CreateProgram from "./pages/dashboards/principal/CreateProgram";
+import EditProgram from "./pages/dashboards/principal/EditProgram";
 
 function App() {
   return (
@@ -112,6 +119,14 @@ function App() {
           <Route path="reports" element={<PrincipalReports />} />
           <Route path="principal-profile" element={<MyProfile />} />
           <Route path="student-view/:id" element={<ViewStudent />} />
+          <Route path="departments" element={<PrincipalDeptsAndPrograms />} />
+          <Route path="departments/new" element={<CreateDepartment />} />
+          <Route path="departments/:id" element={<DepartmentList />} />
+          <Route path="departments/edit/:id" element={<EditDepartment />} />
+          <Route path="programs" element={<ProgramList />} />
+          <Route path="programs/new" element={<CreateProgram />} />
+          <Route path="programs/:id" element={<ProgramList />} />
+          <Route path="programs/edit/:id" element={<EditProgram />} />
         </Route>
 
         {/* Teacher */}
