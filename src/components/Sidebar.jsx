@@ -249,7 +249,7 @@ const Sidebar = ({ show, onClose }) => {
               key={i}
               to={item.path}
               className={({ isActive }) =>
-                `d-flex align-items-center text-white d-block mb-3 p-2 rounded ${
+                `d-flex align-items-center text-black d-block mb-3 p-2 rounded ${
                   isActive ? "bg-white bg-opacity-20" : ""
                 }`
               }

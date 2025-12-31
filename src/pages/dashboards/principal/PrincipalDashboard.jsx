@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import {
   BarChart,
@@ -107,7 +105,7 @@ function PrincipalDashboard() {
       {/* Top Summary Cards */}
       <div className="row mt-4 mb-4">
         <div className="col-md-3">
-          <div className="card p-3 shadow-sm">
+          <div className="card p-3 shadow-sm h-100">
             <div className="d-flex align-items-center">
               <i
                 className="bi bi-people-fill me-2"
@@ -122,7 +120,7 @@ function PrincipalDashboard() {
         </div>
 
         <div className="col-md-3">
-          <div className="card p-3 shadow-sm">
+          <div className="card p-3 shadow-sm h-100">
             <div className="d-flex align-items-center">
               <i
                 className="bi bi-person-badge me-2"
@@ -137,7 +135,7 @@ function PrincipalDashboard() {
         </div>
 
         <div className="col-md-3">
-          <div className="card p-3 shadow-sm">
+          <div className="card p-3 shadow-sm h-100">
             <div className="d-flex align-items-center">
               <i
                 className="bi bi-check-circle me-2"
@@ -159,7 +157,7 @@ function PrincipalDashboard() {
         </div>
 
         <div className="col-md-3">
-          <div className="card p-3 shadow-sm">
+          <div className="card p-3 shadow-sm h-100">
             <div className="d-flex align-items-center">
               <i
                 className="bi bi-exclamation-triangle me-2"
@@ -182,7 +180,7 @@ function PrincipalDashboard() {
       </div>
 
       {/* Main Dashboard Grid */}
-      <div className="row g-4 bg-danger">
+      <div className="row g-4">
         {/* Left Column - Charts */}
         <div className="col-lg-8">
           <div className="row g-4">
@@ -279,7 +277,10 @@ function PrincipalDashboard() {
             </div>
 
             <div className="col-12">
-              <div className="card p-3 shadow-sm h-100">
+              <div
+                className="card p-3 shadow-sm h-100  position-relative"
+                style={{ top: "40px" }}
+              >
                 <h5>Staff by Department</h5>
                 <div style={{ height: 250 }}>
                   <ResponsiveContainer width="100%" height="100%">
@@ -309,10 +310,10 @@ function PrincipalDashboard() {
                 </div>
               </div>
             </div>
-
+            {/* 
             <div className="col-12">
               <QuickStatsPanel />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
