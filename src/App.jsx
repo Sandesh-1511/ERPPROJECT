@@ -62,6 +62,7 @@ import EditDepartment from "./pages/dashboards/principal/EditDepartment";
 import ProgramList from "./pages/dashboards/principal/ProgramList";
 import CreateProgram from "./pages/dashboards/principal/CreateProgram";
 import EditProgram from "./pages/dashboards/principal/EditProgram";
+import ViewExam from "./pages/dashboards/principal/ViewExam";
 
 function App() {
   return (
@@ -127,6 +128,7 @@ function App() {
           <Route path="programs/new" element={<CreateProgram />} />
           <Route path="programs/:id" element={<ProgramList />} />
           <Route path="programs/edit/:id" element={<EditProgram />} />
+          <Route path="exams/view-exam/:id" element={<ViewExam/>}/>
         </Route>
 
         {/* Teacher */}

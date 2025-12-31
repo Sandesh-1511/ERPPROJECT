@@ -115,7 +115,7 @@ const CreateProgram = () => {
           <FaBook className="me-2" />
           Create New Program
         </h2>
-        <Link to="dashboard/principal/departments">
+        <Link to="/dashboard/principal/departments">
           <Button variant="outline-secondary">
             <FaArrowLeft className="me-1" /> Back to List
           </Button>

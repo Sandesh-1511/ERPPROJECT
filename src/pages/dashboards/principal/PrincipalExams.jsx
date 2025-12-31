@@ -15,6 +15,7 @@ import {
   InputGroup,
 } from "react-bootstrap";
 import { FaCalendarAlt, FaClock, FaCheckCircle, FaTrophy, FaPlus, FaEdit, FaTrash, FaEye } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const API_BASE = "https://serp.lemmecode.in/schoolerp";
 
@@ -30,6 +31,7 @@ const PrincipalExams = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedExam, setSelectedExam] = useState(null);
+  const navigate = useNavigate();
 
   // Form Data
   const [formData, setFormData] = useState({
@@ -345,7 +347,7 @@ const PrincipalExams = () => {
                           variant="outline-primary"
                           size="sm"
                           className="me-1"
-                          onClick={() => window.alert(`View Schedule for ${e.name}`)}
+                          onClick={() => navigate(`/dashboard/principal/exams/view-exam/${e.id}`)}
                         >
                           <FaEye className="me-1" /> View
                         </Button>
