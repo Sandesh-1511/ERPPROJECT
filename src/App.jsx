@@ -35,12 +35,10 @@ import Expenses from "./pages/dashboards/accoutant/Expenses";
 import SalaryManagement from "./pages/dashboards/accoutant/SalaryManagement";
 import Invoices from "./pages/dashboards/accoutant/Invoices";
 import DueReminders from "./pages/dashboards/accoutant/DueReminders";
-import AccountantProfile from "./pages/dashboards/accoutant/AccoutantProfile";
 import Receipts from "./pages/dashboards/accoutant/Receipts";
 import StudentDashboard from "./pages/dashboards/students/StudentDashboard";
 import StudentDocuments from "./pages/dashboards/students/StudentDocuments";
 import StudentGuardians from "./pages/dashboards/students/StudentGuardians";
-import StudentForm from "./pages/dashboards/students/StudyMaterialSection";
 import StudentProfile from "./pages/dashboards/students/StudentProfile";
 import FeesSection from "./pages/dashboards/students/FeesSection";
 import SyllabusStatus from "./pages/dashboards/students/SyllabusStatus";
@@ -63,6 +61,8 @@ import ProgramList from "./pages/dashboards/principal/ProgramList";
 import CreateProgram from "./pages/dashboards/principal/CreateProgram";
 import EditProgram from "./pages/dashboards/principal/EditProgram";
 import ViewExam from "./pages/dashboards/principal/ViewExam";
+import AddStudent from "./pages/dashboards/principal/AddStudent";
+import EditStudent from "./pages/dashboards/principal/EditStudent";
 
 function App() {
   return (
@@ -113,6 +113,8 @@ function App() {
         >
           <Route index element={<PrincipalDashboard />} />
           <Route path="students" element={<PrincipalStudents />} />
+          <Route path="students/add" element={<AddStudent />} />
+          <Route path="students/edit/:id" element={<EditStudent />} />
           <Route path="fees" element={<PrincipalFees />} />
           <Route path="exams" element={<PrincipalExams />} />
           <Route path="academic" element={<PrincipalAcademic />} />

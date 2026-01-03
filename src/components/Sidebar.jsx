@@ -134,7 +134,7 @@
 
 
 
-/// src/components/Sidebar.jsx
+// src/components/Sidebar.jsx
 import React from "react";
 import { NavLink } from "react-router-dom";
 import LogoutButton from "./LogoutButton";
