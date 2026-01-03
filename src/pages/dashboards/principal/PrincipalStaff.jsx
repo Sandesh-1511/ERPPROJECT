@@ -1,6 +1,6 @@
 // src/pages/principal/Staff.jsx
 import React from "react";
-import { Table, Badge } from "react-bootstrap";
+import { Table, Badge, Container } from "react-bootstrap";
 
 const PrincipalStaff = () => {
   // Mock data - replace with: GET /api/principal/staff
@@ -11,7 +11,7 @@ const PrincipalStaff = () => {
   ];
 
   return (
-    <>
+    <Container fluid className="py-4 px-3 px-md-4">
       <h4 className="mb-4">Staff Directory</h4>
 
       <Table striped bordered hover responsive>
@@ -42,7 +42,7 @@ const PrincipalStaff = () => {
           ))}
         </tbody>
       </Table>
-    </>
+    </Container>
   );
 };
 

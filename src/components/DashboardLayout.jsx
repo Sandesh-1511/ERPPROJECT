@@ -100,7 +100,7 @@ const DashboardLayout = () => {
         </div>
 
         {/* Content */}
-        <main className="p-3 p-md-4" style={{ background: "#f8f9fa" }}>
+        <main className="p-3 p-md-4 ms-4" style={{ background: "#f8f9fa" }}>
           <Outlet />
         </main>
       </div>

@@ -63,6 +63,8 @@ import EditProgram from "./pages/dashboards/principal/EditProgram";
 import ViewExam from "./pages/dashboards/principal/ViewExam";
 import AddStudent from "./pages/dashboards/principal/AddStudent";
 import EditStudent from "./pages/dashboards/principal/EditStudent";
+import EditExam from "./pages/dashboards/principal/EditExam";
+import AddExam from "./pages/dashboards/principal/AddExam";
 
 function App() {
   return (
@@ -117,6 +119,9 @@ function App() {
           <Route path="students/edit/:id" element={<EditStudent />} />
           <Route path="fees" element={<PrincipalFees />} />
           <Route path="exams" element={<PrincipalExams />} />
+          <Route path="add-exam" element={<AddExam/>}/>
+          <Route path="exams/view-exam/:id" element={<ViewExam/>}/>
+          <Route path="exams/edit-exam/:id" element={<EditExam/>}/>
           <Route path="academic" element={<PrincipalAcademic />} />
           <Route path="staff" element={<PrincipalStaff />} />
           <Route path="reports" element={<PrincipalReports />} />
@@ -130,7 +135,6 @@ function App() {
           <Route path="programs/new" element={<CreateProgram />} />
           <Route path="programs/:id" element={<ProgramList />} />
           <Route path="programs/edit/:id" element={<EditProgram />} />
-          <Route path="exams/view-exam/:id" element={<ViewExam/>}/>
         </Route>
 
         {/* Teacher */}

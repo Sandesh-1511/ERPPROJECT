@@ -11,6 +11,7 @@ import {
   Badge,
   Row,
   Col,
+  Container,
 } from "react-bootstrap";
 
 const API_BASE = "https://serp.lemmecode.in/schoolerp";
@@ -179,7 +180,7 @@ const PrincipalAcademic = () => {
   };
 
   return (
-    <>
+    <Container fluid className="py-4 px-3 px-md-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h4>Academic Sessions</h4>
         <Button variant="primary" onClick={handleShowAdd}>
@@ -335,7 +336,7 @@ const PrincipalAcademic = () => {
           </Form>
         </Modal.Body>
       </Modal>
-    </>
+    </Container>
   );
 };
 

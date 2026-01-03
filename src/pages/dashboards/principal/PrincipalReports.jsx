@@ -1,6 +1,6 @@
 // src/pages/principal/Reports.jsx
 import React from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Container } from "react-bootstrap";
 
 const PrincipalReports = () => {
   const downloadReport = (type) => {
@@ -9,7 +9,7 @@ const PrincipalReports = () => {
   };
 
   return (
-    <>
+    <Container fluid className="py-4 px-3 px-md-4">
       <h4 className="mb-4">Reports</h4>
 
       <Card className="mb-3">
@@ -41,7 +41,7 @@ const PrincipalReports = () => {
           </Button>
         </Card.Body>
       </Card>
-    </>
+    </Container>
   );
 };
 

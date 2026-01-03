@@ -1,1095 +1,49 @@
-
-
-// // src/pages/principal/EditStudent.jsx
-// // import React, { useState, useEffect } from "react";
-// // import { Button, Form, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
-// // import { useNavigate, useParams } from "react-router-dom";
-
-// // const API_DEFAULT = "https://serp.lemmecode.in/schoolerp";
-// // const API_BASE = API_DEFAULT.trim();
-
-// // const EditStudent = () => {
-// //   const { id } = useParams();
-// //   const [formData, setFormData] = useState({
-// //     first_name: "",
-// //     middle_name: "",
-// //     last_name: "",
-// //     date_of_birth: "",
-// //     gender: "male",
-// //     mobile_number: "",
-// //     email: "",
-// //     program_id: "",
-// //     academic_year: "FY",
-// //     division_id: "",
-// //     academic_session_id: "",
-// //     admission_date: "",
-// //     category: "general",
-// //     student_status: "active",
-// //   });
-// //   const [programs, setPrograms] = useState([]);
-// //   const [academicSessions, setAcademicSessions] = useState([]);
-// //   const [loading, setLoading] = useState(true);
-// //   const [programsLoading, setProgramsLoading] = useState(false);
-// //   const [sessionsLoading, setSessionsLoading] = useState(false);
-// //   const [error, setError] = useState("");
-// //   const [submitting, setSubmitting] = useState(false);
-// //   const navigate = useNavigate();
-
-// //   const token = localStorage.getItem("token");
-
-// //   const safeFetchJSON = async (url, options = {}) => {
-// //     const res = await fetch(url.trim(), {
-// //       ...options,
-// //       headers: {
-// //         Accept: "application/json",
-// //         "Content-Type": "application/json",
-// //         ...(token ? { Authorization: `Bearer ${token}` } : {}),
-// //         ...(options.headers || {}),
-// //       },
-// //     });
-// //     const contentType = res.headers.get("content-type");
-// //     if (!contentType || !contentType.includes("application/json")) {
-// //       const text = await res.text();
-// //       throw new Error(
-// //         `Expected JSON but received HTML. Status: ${res.status}. Preview: ${text.substring(0, 100)}...`
-// //       );
-// //     }
-// //     return await res.json();
-// //   };
-
-// //   const fetchStudent = async () => {
-// //     setLoading(true);
-// //     try {
-// //       const res = await safeFetchJSON(`${API_BASE}/api/students/${id}`);
-// //       if (res.success && res.data) {
-// //         const student = res.data;
-// //         setFormData({
-// //           ...student,
-// //           date_of_birth: student.date_of_birth ? student.date_of_birth.split("T")[0] : "",
-// //           admission_date: student.admission_date ? student.admission_date.split("T")[0] : "",
-// //           student_status: student.student_status || "active",
-// //         });
-// //       } else {
-// //         throw new Error(res.message || "Failed to load student");
-// //       }
-// //     } catch (err) {
-// //       console.error("Fetch Student Error:", err);
-// //       setError(`Failed to load student: ${err.message}`);
-// //     } finally {
-// //       setLoading(false);
-// //     }
-// //   };
-
-// //   const fetchPrograms = async () => {
-// //     setProgramsLoading(true);
-// //     try {
-// //       const res = await safeFetchJSON(`${API_BASE}/api/programs`);
-// //       if (res.success && Array.isArray(res.data)) {
-// //         setPrograms(res.data);
-// //       } else {
-// //         throw new Error(res.message || "Failed to load programs");
-// //       }
-// //     } catch (err) {
-// //       console.error("Fetch Programs Error:", err);
-// //       setError(`Failed to load programs: ${err.message}`);
-// //     } finally {
-// //       setProgramsLoading(false);
-// //     }
-// //   };
-
-// //   const fetchAcademicSessions = async () => {
-// //     setSessionsLoading(true);
-// //     try {
-// //       const res = await safeFetchJSON(`${API_BASE}/api/academic-sessions`);
-// //       if (res.success && Array.isArray(res.data)) {
-// //         setAcademicSessions(res.data);
-// //       } else {
-// //         throw new Error(res.message || "Failed to load academic sessions");
-// //       }
-// //     } catch (err) {
-// //       console.error("Fetch Academic Sessions Error:", err);
-// //       setError(`Failed to load academic sessions: ${err.message}`);
-// //     } finally {
-// //       setSessionsLoading(false);
-// //     }
-// //   };
-
-// //   useEffect(() => {
-// //     fetchStudent();
-// //     fetchPrograms();
-// //     fetchAcademicSessions();
-// //   }, [id]);
-
-// //   const validateForm = () => {
-// //     const errors = {};
-// //     if (!formData.first_name.trim()) errors.first_name = "First name is required";
-// //     if (!formData.last_name.trim()) errors.last_name = "Last name is required";
-// //     if (!formData.date_of_birth) errors.date_of_birth = "Date of birth is required";
-// //     if (!formData.program_id) errors.program_id = "Program is required";
-// //     if (!formData.division_id) errors.division_id = "Division is required";
-// //     if (!formData.academic_session_id) errors.academic_session_id = "Academic session is required";
-// //     if (!formData.admission_date) errors.admission_date = "Admission date is required";
-// //     return errors;
-// //   };
-
-// //   const handleSubmit = async (e) => {
-// //     e.preventDefault();
-// //     const errors = validateForm();
-// //     if (Object.keys(errors).length > 0) {
-// //       console.error("Validation errors:", errors);
-// //       return;
-// //     }
-
-// //     setSubmitting(true);
-// //     try {
-// //       const payload = {
-// //         first_name: formData.first_name,
-// //         middle_name: formData.middle_name,
-// //         last_name: formData.last_name,
-// //         date_of_birth: formData.date_of_birth,
-// //         gender: formData.gender,
-// //         mobile_number: formData.mobile_number,
-// //         email: formData.email,
-// //         program_id: formData.program_id,
-// //         academic_year: formData.academic_year,
-// //         division_id: formData.division_id,
-// //         academic_session_id: formData.academic_session_id,
-// //         admission_date: formData.admission_date,
-// //         category: formData.category,
-// //         status: formData.student_status,
-// //       };
-
-// //       const response = await safeFetchJSON(`${API_BASE}/api/students/${id}`, {
-// //         method: "PUT",
-// //         body: JSON.stringify(payload),
-// //       });
-
-// //       if (response.success) {
-// //         navigate("/dashboard/principal/students");
-// //       } else {
-// //         throw new Error(response.message || "Operation failed");
-// //       }
-// //     } catch (err) {
-// //       console.error("Submit Error:", err);
-// //       setError(`Operation failed: ${err.message}`);
-// //     } finally {
-// //       setSubmitting(false);
-// //     }
-// //   };
-
-// //   // ✅ Theme from Sidebar
-// //   const theme = {
-// //     primary: "#04626a",
-// //     primaryHover: "#057a84",
-// //     textLight: "#ffffff",
-// //     borderLight: "rgba(255, 255, 255, 0.3)",
-// //     bgCard: "rgba(255, 255, 255, 0.05)",
-// //   };
-
-// //   if (loading) {
-// //     return (
-// //       <div className="d-flex justify-content-center align-items-center w-100" style={{ minHeight: "50vh" }}>
-// //         <Spinner animation="border" variant="light" />
-// //       </div>
-// //     );
-// //   }
-
-// //   return (
-// //     <div className="p-3 p-md-4 w-100">
-// //       <Card
-// //         className="shadow-sm border-0"
-// //         style={{
-// //           background: theme.bgCard,
-// //           backdropFilter: "blur(10px)",
-// //           WebkitBackdropFilter: "blur(10px)",
-// //           border: `1px solid ${theme.borderLight}`,
-// //           borderRadius: "12px",
-// //         }}
-// //       >
-// //         <Card.Body>
-// //           <h4 className="text-dark mb-4 fw-bold">Edit Student</h4>
-
-// //           {error && (
-// //             <Alert variant="danger" className="text-dark mb-4">
-// //               {error}
-// //             </Alert>
-// //           )}
-
-// //           <Form onSubmit={handleSubmit}>
-// //             <Row>
-// //               <Col md={4} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark ">First Name *</Form.Label>
-// //                   <Form.Control
-// //                     value={formData.first_name}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, first_name: e.target.value })
-// //                     }
-// //                     style={{
-// //                       // background: "black",
-// //                       // border: `1px solid ${theme.borderLight}`,
-// //                       border:"2px solid gray",
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                     required
-// //                   />
-// //                 </Form.Group>
-// //               </Col>
-// //               <Col md={4} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Middle Name</Form.Label>
-// //                   <Form.Control
-// //                     value={formData.middle_name}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, middle_name: e.target.value })
-// //                     }
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                   />
-// //                 </Form.Group>
-// //               </Col>
-// //               <Col md={4} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Last Name *</Form.Label>
-// //                   <Form.Control
-// //                     value={formData.last_name}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, last_name: e.target.value })
-// //                     }
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                     required
-// //                   />
-// //                 </Form.Group>
-// //               </Col>
-// //             </Row>
-
-// //             <Row>
-// //               <Col md={4} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Date of Birth *</Form.Label>
-// //                   <Form.Control
-// //                     type="date"
-// //                     value={formData.date_of_birth}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, date_of_birth: e.target.value })
-// //                     }
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                     required
-// //                   />
-// //                 </Form.Group>
-// //               </Col>
-// //               <Col md={4} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Gender</Form.Label>
-// //                   <Form.Select
-// //                     value={formData.gender}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, gender: e.target.value })
-// //                     }
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                   >
-// //                     <option value="male">Male</option>
-// //                     <option value="female">Female</option>
-// //                     <option value="other">Other</option>
-// //                   </Form.Select>
-// //                 </Form.Group>
-// //               </Col>
-// //               <Col md={4} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Category</Form.Label>
-// //                   <Form.Select
-// //                     value={formData.category}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, category: e.target.value })
-// //                     }
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                   >
-// //                     <option value="general">General</option>
-// //                     <option value="obc">OBC</option>
-// //                     <option value="sc">SC</option>
-// //                     <option value="st">ST</option>
-// //                   </Form.Select>
-// //                 </Form.Group>
-// //               </Col>
-// //             </Row>
-
-// //             <Row>
-// //               <Col md={6} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Mobile Number</Form.Label>
-// //                   <Form.Control
-// //                     type="tel"
-// //                     value={formData.mobile_number}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, mobile_number: e.target.value })
-// //                     }
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                   />
-// //                 </Form.Group>
-// //               </Col>
-// //               <Col md={6} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Email</Form.Label>
-// //                   <Form.Control
-// //                     type="email"
-// //                     value={formData.email}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, email: e.target.value })
-// //                     }
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                   />
-// //                 </Form.Group>
-// //               </Col>
-// //             </Row>
-
-// //             <Row>
-// //               <Col md={4} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Program *</Form.Label>
-// //                   <Form.Select
-// //                     value={formData.program_id}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, program_id: Number(e.target.value) })
-// //                     }
-// //                     disabled={programsLoading}
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                     required
-// //                   >
-// //                     <option value="">Select Program</option>
-// //                     {programs.map((p) => (
-// //                       <option key={p.id} value={p.id}>
-// //                         {p.short_name}
-// //                       </option>
-// //                     ))}
-// //                   </Form.Select>
-// //                 </Form.Group>
-// //               </Col>
-// //               <Col md={4} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Division *</Form.Label>
-// //                   <Form.Select
-// //                     value={formData.division_id}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, division_id: Number(e.target.value) })
-// //                     }
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                     required
-// //                   >
-// //                     <option value="">Select Division</option>
-// //                     <option value={1}>A</option>
-// //                     <option value={2}>B</option>
-// //                   </Form.Select>
-// //                 </Form.Group>
-// //               </Col>
-// //               <Col md={4} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Academic Session *</Form.Label>
-// //                   <Form.Select
-// //                     value={formData.academic_session_id}
-// //                     onChange={(e) =>
-// //                       setFormData({
-// //                         ...formData,
-// //                         academic_session_id: Number(e.target.value),
-// //                       })
-// //                     }
-// //                     disabled={sessionsLoading}
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                     required
-// //                   >
-// //                     <option value="">Select Session</option>
-// //                     {academicSessions.map((s) => (
-// //                       <option key={s.id} value={s.id}>
-// //                         {s.session_name}
-// //                       </option>
-// //                     ))}
-// //                   </Form.Select>
-// //                 </Form.Group>
-// //               </Col>
-// //             </Row>
-
-// //             <Row>
-// //               <Col md={6} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Admission Date *</Form.Label>
-// //                   <Form.Control
-// //                     type="date"
-// //                     value={formData.admission_date}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, admission_date: e.target.value })
-// //                     }
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                     required
-// //                   />
-// //                 </Form.Group>
-// //               </Col>
-// //               <Col md={6} xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Academic Year</Form.Label>
-// //                   <Form.Select
-// //                     value={formData.academic_year}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, academic_year: e.target.value })
-// //                     }
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       color: theme.textLight,
-// //                       borderRadius: "8px",
-// //                     }}
-// //                   >
-// //                     <option value="FY">FY</option>
-// //                     <option value="SY">SY</option>
-// //                     <option value="TY">TY</option>
-// //                   </Form.Select>
-// //                 </Form.Group>
-// //               </Col>
-// //             </Row>
-
-// //             <Row>
-// //               <Col xs={12}>
-// //                 <Form.Group className="mb-3">
-// //                   <Form.Label className="text-dark">Status</Form.Label>
-// //                   <Form.Select
-// //                     value={formData.student_status}
-// //                     onChange={(e) =>
-// //                       setFormData({ ...formData, student_status: e.target.value })
-// //                     }
-// //                     style={{
-// //                       background: "rgba(255, 255, 255, 0.08)",
-// //                       border: `1px solid ${theme.borderLight}`,
-// //                       // color: theme.textLight,
-// //                       color:"black",
-// //                       borderRadius: "8px",
-// //                     }}
-// //                   >
-// //                     <option value="active">Active</option>
-// //                     <option value="inactive">Inactive</option>
-// //                     <option value="graduated">Graduated</option>
-// //                   </Form.Select>
-// //                 </Form.Group>
-// //               </Col>
-// //             </Row>
-
-// //             <div className="d-flex justify-content-end gap-2 flex-wrap mt-4">
-// //               <Button
-            
-// //                 onClick={() => navigate(-1)}
-// //                 style={{
-// //                   borderColor: theme.borderLight,
-// //                   color: theme.textLight,
-// //                   borderRadius: "8px",
-// //                   // outline:"black",
-// //                   backgroundColor:"rgba(2, 12, 13, 1)"
-// //                 }}
-// //               >
-// //                 Cancel
-// //               </Button>
-// //               <Button
-// //                 type="submit"
-// //                 disabled={submitting}
-// //                 style={{
-// //                   backgroundColor: theme.primary,
-// //                   border: "none",
-// //                   color: theme.textLight,
-// //                   borderRadius: "8px",
-// //                 }}
-// //                 onMouseEnter={(e) => (e.target.style.backgroundColor = theme.primaryHover)}
-// //                 onMouseLeave={(e) => (e.target.style.backgroundColor = theme.primary)}
-// //               >
-// //                 {submitting ? <Spinner size="sm" variant="light" /> : "Update Student"}
-// //               </Button>
-// //             </div>
-// //           </Form>
-// //         </Card.Body>
-// //       </Card>
-// //     </div>
-// //   );
-// // };
-
-// // export default EditStudent;
-
-
-// // src/pages/principal/EditStudent.jsx
-// // src/pages/principal/EditStudent.jsx
-// import React, { useState, useEffect } from "react";
-// import { Button, Form, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
-// import { useNavigate, useParams } from "react-router-dom";
-
-// const API_DEFAULT = "https://serp.lemmecode.in/schoolerp";
-// const API_BASE = API_DEFAULT.trim();
-
-// const EditStudent = () => {
-//   const { id } = useParams();
-//   const [formData, setFormData] = useState({
-//     first_name: "",
-//     middle_name: "",
-//     last_name: "",
-//     date_of_birth: "",
-//     gender: "male",
-//     mobile_number: "",
-//     email: "",
-//     program_id: "",
-//     academic_year: "FY",
-//     division_id: "",
-//     academic_session_id: "",
-//     admission_date: "",
-//     category: "general",
-//     student_status: "active",
-//   });
-//   const [programs, setPrograms] = useState([]);
-//   const [academicSessions, setAcademicSessions] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [programsLoading, setProgramsLoading] = useState(false);
-//   const [sessionsLoading, setSessionsLoading] = useState(false);
-//   const [error, setError] = useState("");
-//   const [submitting, setSubmitting] = useState(false);
-//   const [fieldErrors, setFieldErrors] = useState({});
-//   const navigate = useNavigate();
-
-//   const token = localStorage.getItem("token");
-
-//   const safeFetchJSON = async (url, options = {}) => {
-//     const res = await fetch(url.trim(), {
-//       ...options,
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json",
-//         ...(token ? { Authorization: `Bearer ${token}` } : {}),
-//         ...(options.headers || {}),
-//       },
-//     });
-//     const contentType = res.headers.get("content-type");
-//     if (!contentType || !contentType.includes("application/json")) {
-//       const text = await res.text();
-//       throw new Error(
-//         `Expected JSON but received HTML. Status: ${res.status}. Preview: ${text.substring(0, 100)}...`
-//       );
-//     }
-//     return await res.json();
-//   };
-
-//   const fetchStudent = async () => {
-//     setLoading(true);
-//     try {
-//       const res = await safeFetchJSON(`${API_BASE}/api/students/${id}`);
-//       if (res.success && res.data) {
-//         const student = res.data;
-//         setFormData({
-//           ...student,
-//           date_of_birth: student.date_of_birth ? student.date_of_birth.split("T")[0] : "",
-//           admission_date: student.admission_date ? student.admission_date.split("T")[0] : "",
-//           student_status: student.student_status || "active",
-//         });
-//       } else {
-//         throw new Error(res.message || "Failed to load student");
-//       }
-//     } catch (err) {
-//       console.error("Fetch Student Error:", err);
-//       setError(`Failed to load student: ${err.message}`);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const fetchPrograms = async () => {
-//     setProgramsLoading(true);
-//     try {
-//       const res = await safeFetchJSON(`${API_BASE}/api/programs`);
-//       if (res.success && Array.isArray(res.data)) {
-//         setPrograms(res.data);
-//       } else {
-//         throw new Error(res.message || "Failed to load programs");
-//       }
-//     } catch (err) {
-//       console.error("Fetch Programs Error:", err);
-//       setError(`Failed to load programs: ${err.message}`);
-//     } finally {
-//       setProgramsLoading(false);
-//     }
-//   };
-
-//   const fetchAcademicSessions = async () => {
-//     setSessionsLoading(true);
-//     try {
-//       const res = await safeFetchJSON(`${API_BASE}/api/academic-sessions`);
-//       if (res.success && Array.isArray(res.data)) {
-//         setAcademicSessions(res.data);
-//       } else {
-//         throw new Error(res.message || "Failed to load academic sessions");
-//       }
-//     } catch (err) {
-//       console.error("Fetch Academic Sessions Error:", err);
-//       setError(`Failed to load academic sessions: ${err.message}`);
-//     } finally {
-//       setSessionsLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchStudent();
-//     fetchPrograms();
-//     fetchAcademicSessions();
-//   }, [id]);
-
-//   const validateForm = () => {
-//     const errors = {};
-//     if (!formData.first_name.trim()) errors.first_name = "First name is required";
-//     if (!formData.last_name.trim()) errors.last_name = "Last name is required";
-//     if (!formData.date_of_birth) errors.date_of_birth = "Date of birth is required";
-//     if (!formData.program_id) errors.program_id = "Program is required";
-//     if (!formData.division_id) errors.division_id = "Division is required";
-//     if (!formData.academic_session_id) errors.academic_session_id = "Academic session is required";
-//     if (!formData.admission_date) errors.admission_date = "Admission date is required";
-//     return errors;
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const errors = validateForm();
-//     setFieldErrors(errors);
-
-//     if (Object.keys(errors).length > 0) {
-//       return;
-//     }
-
-//     setSubmitting(true);
-//     try {
-//       const payload = {
-//         first_name: formData.first_name,
-//         middle_name: formData.middle_name,
-//         last_name: formData.last_name,
-//         date_of_birth: formData.date_of_birth,
-//         gender: formData.gender,
-//         mobile_number: formData.mobile_number,
-//         email: formData.email,
-//         program_id: formData.program_id,
-//         academic_year: formData.academic_year,
-//         division_id: formData.division_id,
-//         academic_session_id: formData.academic_session_id,
-//         admission_date: formData.admission_date,
-//         category: formData.category,
-//         status: formData.student_status,
-//       };
-
-//       const response = await safeFetchJSON(`${API_BASE}/api/students/${id}`, {
-//         method: "PUT",
-//         body: JSON.stringify(payload),
-//       });
-
-//       if (response.success) {
-//         navigate("/dashboard/principal/students");
-//       } else {
-//         throw new Error(response.message || "Operation failed");
-//       }
-//     } catch (err) {
-//       console.error("Submit Error:", err);
-//       setError(`Operation failed: ${err.message}`);
-//     } finally {
-//       setSubmitting(false);
-//     }
-//   };
-
-//   // ✅ Primary button color from your Sidebar
-//   const primaryColor = "#04626a";
-//   const primaryHover = "#057a84";
-
-//   if (loading) {
-//     return (
-//       <div className="d-flex justify-content-center align-items-center w-100" style={{ minHeight: "50vh" }}>
-//         <Spinner animation="border" />
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="p-3 p-md-4 w-100">
-//       <Card className="shadow-sm border-0" style={{ borderRadius: "12px" }}>
-//         <Card.Body>
-//           <h4 className="mb-4 fw-bold">Edit Student</h4>
-
-//           {error && <Alert variant="danger">{error}</Alert>}
-
-//           <Form onSubmit={handleSubmit}>
-//             <Row>
-//               <Col md={4} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>First Name *</Form.Label>
-//                   <Form.Control
-//                     value={formData.first_name}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, first_name: e.target.value })
-//                     }
-//                     isInvalid={!!fieldErrors.first_name}
-//                     required
-//                   />
-//                   <Form.Control.Feedback type="invalid">
-//                     {fieldErrors.first_name}
-//                   </Form.Control.Feedback>
-//                 </Form.Group>
-//               </Col>
-//               <Col md={4} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Middle Name</Form.Label>
-//                   <Form.Control
-//                     value={formData.middle_name}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, middle_name: e.target.value })
-//                     }
-//                   />
-//                 </Form.Group>
-//               </Col>
-//               <Col md={4} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Last Name *</Form.Label>
-//                   <Form.Control
-//                     value={formData.last_name}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, last_name: e.target.value })
-//                     }
-//                     isInvalid={!!fieldErrors.last_name}
-//                     required
-//                   />
-//                   <Form.Control.Feedback type="invalid">
-//                     {fieldErrors.last_name}
-//                   </Form.Control.Feedback>
-//                 </Form.Group>
-//               </Col>
-//             </Row>
-
-//             <Row>
-//               <Col md={4} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Date of Birth *</Form.Label>
-//                   <Form.Control
-//                     type="date"
-//                     value={formData.date_of_birth}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, date_of_birth: e.target.value })
-//                     }
-//                     isInvalid={!!fieldErrors.date_of_birth}
-//                     required
-//                   />
-//                   <Form.Control.Feedback type="invalid">
-//                     {fieldErrors.date_of_birth}
-//                   </Form.Control.Feedback>
-//                 </Form.Group>
-//               </Col>
-//               <Col md={4} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Gender</Form.Label>
-//                   <Form.Select
-//                     value={formData.gender}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, gender: e.target.value })
-//                     }
-//                   >
-//                     <option value="male">Male</option>
-//                     <option value="female">Female</option>
-//                     <option value="other">Other</option>
-//                   </Form.Select>
-//                 </Form.Group>
-//               </Col>
-//               <Col md={4} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Category</Form.Label>
-//                   <Form.Select
-//                     value={formData.category}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, category: e.target.value })
-//                     }
-//                   >
-//                     <option value="general">General</option>
-//                     <option value="obc">OBC</option>
-//                     <option value="sc">SC</option>
-//                     <option value="st">ST</option>
-//                   </Form.Select>
-//                 </Form.Group>
-//               </Col>
-//             </Row>
-
-//             <Row>
-//               <Col md={6} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Mobile Number</Form.Label>
-//                   <Form.Control
-//                     type="tel"
-//                     value={formData.mobile_number}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, mobile_number: e.target.value })
-//                     }
-//                   />
-//                 </Form.Group>
-//               </Col>
-//               <Col md={6} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Email</Form.Label>
-//                   <Form.Control
-//                     type="email"
-//                     value={formData.email}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, email: e.target.value })
-//                     }
-//                   />
-//                 </Form.Group>
-//               </Col>
-//             </Row>
-
-//             <Row>
-//               <Col md={4} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Program *</Form.Label>
-//                   <Form.Select
-//                     value={formData.program_id}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, program_id: Number(e.target.value) })
-//                     }
-//                     disabled={programsLoading}
-//                     isInvalid={!!fieldErrors.program_id}
-//                     required
-//                   >
-//                     <option value="">Select Program</option>
-//                     {programs.map((p) => (
-//                       <option key={p.id} value={p.id}>
-//                         {p.short_name}
-//                       </option>
-//                     ))}
-//                   </Form.Select>
-//                   <Form.Control.Feedback type="invalid">
-//                     {fieldErrors.program_id}
-//                   </Form.Control.Feedback>
-//                 </Form.Group>
-//               </Col>
-//               <Col md={4} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Division *</Form.Label>
-//                   <Form.Select
-//                     value={formData.division_id}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, division_id: Number(e.target.value) })
-//                     }
-//                     isInvalid={!!fieldErrors.division_id}
-//                     required
-//                   >
-//                     <option value="">Select Division</option>
-//                     <option value={1}>A</option>
-//                     <option value={2}>B</option>
-//                   </Form.Select>
-//                   <Form.Control.Feedback type="invalid">
-//                     {fieldErrors.division_id}
-//                   </Form.Control.Feedback>
-//                 </Form.Group>
-//               </Col>
-//               <Col md={4} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Academic Session *</Form.Label>
-//                   <Form.Select
-//                     value={formData.academic_session_id}
-//                     onChange={(e) =>
-//                       setFormData({
-//                         ...formData,
-//                         academic_session_id: Number(e.target.value),
-//                       })
-//                     }
-//                     disabled={sessionsLoading}
-//                     isInvalid={!!fieldErrors.academic_session_id}
-//                     required
-//                   >
-//                     <option value="">Select Session</option>
-//                     {academicSessions.map((s) => (
-//                       <option key={s.id} value={s.id}>
-//                         {s.session_name}
-//                       </option>
-//                     ))}
-//                   </Form.Select>
-//                   <Form.Control.Feedback type="invalid">
-//                     {fieldErrors.academic_session_id}
-//                   </Form.Control.Feedback>
-//                 </Form.Group>
-//               </Col>
-//             </Row>
-
-//             <Row>
-//               <Col md={6} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Admission Date *</Form.Label>
-//                   <Form.Control
-//                     type="date"
-//                     value={formData.admission_date}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, admission_date: e.target.value })
-//                     }
-//                     isInvalid={!!fieldErrors.admission_date}
-//                     required
-//                   />
-//                   <Form.Control.Feedback type="invalid">
-//                     {fieldErrors.admission_date}
-//                   </Form.Control.Feedback>
-//                 </Form.Group>
-//               </Col>
-//               <Col md={6} xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Academic Year</Form.Label>
-//                   <Form.Select
-//                     value={formData.academic_year}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, academic_year: e.target.value })
-//                     }
-//                   >
-//                     <option value="FY">FY</option>
-//                     <option value="SY">SY</option>
-//                     <option value="TY">TY</option>
-//                   </Form.Select>
-//                 </Form.Group>
-//               </Col>
-//             </Row>
-
-//             <Row>
-//               <Col xs={12}>
-//                 <Form.Group className="mb-3">
-//                   <Form.Label>Status</Form.Label>
-//                   <Form.Select
-//                     value={formData.student_status}
-//                     onChange={(e) =>
-//                       setFormData({ ...formData, student_status: e.target.value })
-//                     }
-//                   >
-//                     <option value="active">Active</option>
-//                     <option value="inactive">Inactive</option>
-//                     <option value="graduated">Graduated</option>
-//                   </Form.Select>
-//                 </Form.Group>
-//               </Col>
-//             </Row>
-
-//             <div className="d-flex justify-content-end gap-2 flex-wrap mt-4">
-//               <Button
-//                 style={{backgroundColor: "#09181aff", border: "none"}}
-//                 onClick={() => navigate(-1)}
-//               >
-//                 Cancel
-//               </Button>
-//               <Button
-//                 type="submit"
-//                 disabled={submitting}
-//                 style={{
-//                   backgroundColor: primaryColor,
-//                   border: "none",
-//                   color: "#ffffff",
-//                 }}
-//                 onMouseEnter={(e) => (e.target.style.backgroundColor = primaryHover)}
-//                 onMouseLeave={(e) => (e.target.style.backgroundColor = primaryColor)}
-//               >
-//                 {submitting ? <Spinner size="sm" variant="light" /> : "Update Student"}
-//               </Button>
-//             </div>
-//           </Form>
-//         </Card.Body>
-//       </Card>
-//     </div>
-//   );
-// };
-
-// export default EditStudent;
-
-
-
 // src/pages/principal/EditStudent.jsx
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Form,
-  Row,
-  Col,
-  Card,
-  Spinner,
-  Alert,
-} from "react-bootstrap";
+import { Button, Form, Row, Col, Card, Spinner, Alert } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { toast } from "react-toastify";
 
-const API_DEFAULT = "https://serp.lemmecode.in/schoolerp  ";
+const API_DEFAULT = "https://serp.lemmecode.in/schoolerp";
 const API_BASE = API_DEFAULT.trim();
+
+const studentSchema = Yup.object().shape({
+  first_name: Yup.string()
+    .matches(/^[A-Za-z\s]+$/, "First name must contain only letters and spaces")
+    .required("First name is required"),
+  middle_name: Yup.string().matches(/^[A-Za-z\s]*$/, "Middle name must contain only letters and spaces"),
+  last_name: Yup.string()
+    .matches(/^[A-Za-z\s]+$/, "Last name must contain only letters and spaces")
+    .required("Last name is required"),
+  date_of_birth: Yup.date()
+    .max(new Date(), "Date of birth cannot be in the future")
+    .required("Date of birth is required"),
+  gender: Yup.string().oneOf(["male", "female", "other"]),
+  mobile_number: Yup.string()
+    .matches(/^[6-9]\d{9}$/, "Mobile number must be 10 digits and start with 6, 7, 8, or 9")
+    .nullable(),
+  email: Yup.string().email("Invalid email").nullable(),
+  program_id: Yup.number().required("Program is required").positive(),
+  division_id: Yup.number().required("Division is required").positive(),
+  academic_session_id: Yup.number().required("Academic session is required").positive(),
+  admission_date: Yup.date()
+    .max(new Date(), "Admission date cannot be in the future")
+    .required("Admission date is required"),
+  category: Yup.string().oneOf(["general", "obc", "sc", "st"]),
+  academic_year: Yup.string().oneOf(["FY", "SY", "TY"]),
+  student_status: Yup.string().oneOf(["active", "inactive", "graduated"]),
+});
 
 const EditStudent = () => {
   const { id } = useParams();
-  const [formData, setFormData] = useState({
-    first_name: "",
-    middle_name: "",
-    last_name: "",
-    date_of_birth: "",
-    gender: "male",
-    mobile_number: "",
-    email: "",
-    program_id: "",
-    academic_year: "FY",
-    division_id: "",
-    academic_session_id: "",
-    admission_date: "",
-    category: "general",
-    student_status: "active",
-  });
   const [programs, setPrograms] = useState([]);
   const [academicSessions, setAcademicSessions] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [programsLoading, setProgramsLoading] = useState(false);
   const [sessionsLoading, setSessionsLoading] = useState(false);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState({});
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -1120,10 +74,20 @@ const EditStudent = () => {
       const res = await safeFetchJSON(`${API_BASE}/api/students/${id}`);
       if (res.success && res.data) {
         const student = res.data;
-        setFormData({
-          ...student,
+        formik.setValues({
+          first_name: student.first_name || "",
+          middle_name: student.middle_name || "",
+          last_name: student.last_name || "",
           date_of_birth: student.date_of_birth ? student.date_of_birth.split("T")[0] : "",
+          gender: student.gender || "male",
+          mobile_number: student.mobile_number || "",
+          email: student.email || "",
+          program_id: student.program_id || "",
+          academic_year: student.academic_year || "FY",
+          division_id: student.division_id || "",
+          academic_session_id: student.academic_session_id || "",
           admission_date: student.admission_date ? student.admission_date.split("T")[0] : "",
+          category: student.category || "general",
           student_status: student.student_status || "active",
         });
       } else {
@@ -1131,7 +95,8 @@ const EditStudent = () => {
       }
     } catch (err) {
       console.error("Fetch Student Error:", err);
-      setError(`Failed to load student: ${err.message}`);
+      toast.error(`Failed to load student: ${err.message}`);
+      navigate("/dashboard/principal/students");
     } finally {
       setLoading(false);
     }
@@ -1148,7 +113,7 @@ const EditStudent = () => {
       }
     } catch (err) {
       console.error("Fetch Programs Error:", err);
-      setError(`Failed to load programs: ${err.message}`);
+      toast.error(`Failed to load programs: ${err.message}`);
     } finally {
       setProgramsLoading(false);
     }
@@ -1165,7 +130,7 @@ const EditStudent = () => {
       }
     } catch (err) {
       console.error("Fetch Academic Sessions Error:", err);
-      setError(`Failed to load academic sessions: ${err.message}`);
+      toast.error(`Failed to load academic sessions: ${err.message}`);
     } finally {
       setSessionsLoading(false);
     }
@@ -1177,82 +142,23 @@ const EditStudent = () => {
     fetchAcademicSessions();
   }, [id]);
 
-  // ✅ Enhanced Validation Logic
   const validateForm = () => {
     const errors = {};
-
-    // First Name
-    if (!formData.first_name.trim()) {
-      errors.first_name = "First name is required";
-    } else if (!/^[A-Za-z\s]+$/.test(formData.first_name.trim())) {
-      errors.first_name = "First name must contain only letters and spaces";
-    }
-
-    // Last Name
-    if (!formData.last_name.trim()) {
-      errors.last_name = "Last name is required";
-    } else if (!/^[A-Za-z\s]+$/.test(formData.last_name.trim())) {
-      errors.last_name = "Last name must contain only letters and spaces";
-    }
-
-    // Middle Name (optional but must be valid if present)
-    if (
-      formData.middle_name.trim() &&
-      !/^[A-Za-z\s]+$/.test(formData.middle_name.trim())
-    ) {
-      errors.middle_name = "Middle name must contain only letters and spaces";
-    }
-
-    // Date of Birth
-    if (!formData.date_of_birth) {
-      errors.date_of_birth = "Date of birth is required";
-    }
-
-    // Program
-    if (!formData.program_id) {
-      errors.program_id = "Program is required";
-    }
-
-    // Division
-    if (!formData.division_id) {
-      errors.division_id = "Division is required";
-    }
-
-    // Academic Session
-    if (!formData.academic_session_id) {
-      errors.academic_session_id = "Academic session is required";
-    }
-
-    // Admission Date
-    if (!formData.admission_date) {
-      errors.admission_date = "Admission date is required";
-    }
-
-    // Mobile (optional but must be valid if present)
-    if (formData.mobile_number) {
-      if (!/^[6-9]\d{9}$/.test(formData.mobile_number)) {
-        errors.mobile_number = "Mobile must be 10 digits and start with 6–9";
-      }
-    }
-
-    // Email (optional but must be valid if present)
-    if (formData.email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.email)) {
-        errors.email = "Invalid email address";
-      }
-    }
-
+    if (!formData.first_name.trim()) errors.first_name = "First name is required";
+    if (!formData.last_name.trim()) errors.last_name = "Last name is required";
+    if (!formData.date_of_birth) errors.date_of_birth = "Date of birth is required";
+    if (!formData.program_id) errors.program_id = "Program is required";
+    if (!formData.division_id) errors.division_id = "Division is required";
+    if (!formData.academic_session_id) errors.academic_session_id = "Academic session is required";
+    if (!formData.admission_date) errors.admission_date = "Admission date is required";
     return errors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validateForm();
-    setFieldErrors(errors);
-
     if (Object.keys(errors).length > 0) {
-      // Scroll to first error if needed (optional)
+      console.error("Validation errors:", errors);
       return;
     }
 
@@ -1272,13 +178,13 @@ const EditStudent = () => {
         academic_session_id: formData.academic_session_id,
         admission_date: formData.admission_date,
         category: formData.category,
-        status: formData.student_status,
+        status: formData.student_status, // API expects 'status'
       };
 
-      const response = await safeFetchJSON(`${API_BASE}/api/students/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(payload),
-      });
+        const response = await safeFetchJSON(`${API_BASE}/api/students/${id}`, {
+          method: "PUT",
+          body: JSON.stringify(payload),
+        });
 
       if (response.success) {
         navigate("/dashboard/principal/students");
@@ -1293,326 +199,272 @@ const EditStudent = () => {
     }
   };
 
-  // ✅ Theme colors (as per your preference)
-  const primaryColor = "#04626a";
-  const primaryHover = "#057a84";
-
   if (loading) {
     return (
-      <div
-        className="d-flex justify-content-center align-items-center w-100"
-        style={{ minHeight: "50vh" }}
-      >
-        <Spinner animation="border" />
-      </div>
+      <Card className="w-100">
+        <Card.Body>
+          <Spinner animation="border" className="d-block mx-auto my-3" />
+        </Card.Body>
+      </Card>
     );
   }
 
   return (
-    <div className="p-3 p-md-4 w-100">
-      <Card className="shadow-sm border-0" style={{ borderRadius: "12px" }}>
-        <Card.Body>
-          <h4 className="mb-4 fw-bold">Edit Student</h4>
+    <Card className="w-100">
+      <Card.Body>
+        <h5 className="mb-4">Edit Student</h5>
+        
+        {error && <Alert variant="danger">{error}</Alert>}
+        
+        <Form onSubmit={handleSubmit}>
+          <Row>
+            <Col md={4} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>First Name *</Form.Label>
+                <Form.Control
+                  value={formData.first_name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, first_name: e.target.value })
+                  }
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={4} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Middle Name</Form.Label>
+                <Form.Control
+                  value={formData.middle_name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, middle_name: e.target.value })
+                  }
+                />
+              </Form.Group>
+            </Col>
+            <Col md={4} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Last Name *</Form.Label>
+                <Form.Control
+                  value={formData.last_name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, last_name: e.target.value })
+                  }
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
 
-          {error && <Alert variant="danger">{error}</Alert>}
+          <Row>
+            <Col md={4} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Date of Birth *</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={formData.date_of_birth}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      date_of_birth: e.target.value,
+                    })
+                  }
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={4} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Gender</Form.Label>
+                <Form.Select
+                  value={formData.gender}
+                  onChange={(e) =>
+                    setFormData({ ...formData, gender: e.target.value })
+                  }
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+            <Col md={4} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Category</Form.Label>
+                <Form.Select
+                  value={formData.category}
+                  onChange={(e) =>
+                    setFormData({ ...formData, category: e.target.value })
+                  }
+                >
+                  <option value="general">General</option>
+                  <option value="obc">OBC</option>
+                  <option value="sc">SC</option>
+                  <option value="st">ST</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+          </Row>
 
-          <Form onSubmit={handleSubmit}>
-            <Row>
-              <Col md={4} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>First Name *</Form.Label>
-                  <Form.Control
-                    value={formData.first_name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, first_name: e.target.value })
-                    }
-                    isInvalid={!!fieldErrors.first_name}
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {fieldErrors.first_name}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-              <Col md={4} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Middle Name</Form.Label>
-                  <Form.Control
-                    value={formData.middle_name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, middle_name: e.target.value })
-                    }
-                    isInvalid={!!fieldErrors.middle_name}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {fieldErrors.middle_name}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-              <Col md={4} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Last Name *</Form.Label>
-                  <Form.Control
-                    value={formData.last_name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, last_name: e.target.value })
-                    }
-                    isInvalid={!!fieldErrors.last_name}
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {fieldErrors.last_name}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-            </Row>
+          <Row>
+            <Col md={6} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Mobile Number</Form.Label>
+                <Form.Control
+                  type="tel"
+                  value={formData.mobile_number}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      mobile_number: e.target.value,
+                    })
+                  }
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                />
+              </Form.Group>
+            </Col>
+          </Row>
 
-            <Row>
-              <Col md={4} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Date of Birth *</Form.Label>
-                  <Form.Control
-                    type="date"
-                    value={formData.date_of_birth}
-                    onChange={(e) =>
-                      setFormData({ ...formData, date_of_birth: e.target.value })
-                    }
-                    isInvalid={!!fieldErrors.date_of_birth}
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {fieldErrors.date_of_birth}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-              <Col md={4} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Gender</Form.Label>
-                  <Form.Select
-                    value={formData.gender}
-                    onChange={(e) =>
-                      setFormData({ ...formData, gender: e.target.value })
-                    }
-                  >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </Form.Select>
-                </Form.Group>
-              </Col>
-              <Col md={4} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Category</Form.Label>
-                  <Form.Select
-                    value={formData.category}
-                    onChange={(e) =>
-                      setFormData({ ...formData, category: e.target.value })
-                    }
-                  >
-                    <option value="general">General</option>
-                    <option value="obc">OBC</option>
-                    <option value="sc">SC</option>
-                    <option value="st">ST</option>
-                  </Form.Select>
-                </Form.Group>
-              </Col>
-            </Row>
+          <Row>
+            <Col md={4} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Program *</Form.Label>
+                <Form.Select
+                  value={formData.program_id}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      program_id: Number(e.target.value),
+                    })
+                  }
+                  required
+                  disabled={programsLoading}
+                >
+                  <option value="">Select Program</option>
+                  {programs.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.short_name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+            </Col>
+            <Col md={4} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Division *</Form.Label>
+                <Form.Select
+                  value={formData.division_id}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      division_id: Number(e.target.value),
+                    })
+                  }
+                  required
+                >
+                  <option value="">Select Division</option>
+                  <option value={1}>A</option>
+                  <option value={2}>B</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+            <Col md={4} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Academic Session *</Form.Label>
+                <Form.Select
+                  value={formData.academic_session_id}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      academic_session_id: Number(e.target.value),
+                    })
+                  }
+                  required
+                  disabled={sessionsLoading}
+                >
+                  <option value="">Select Session</option>
+                  {academicSessions.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.session_name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+            </Col>
+          </Row>
 
-            <Row>
-              <Col md={6} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Mobile Number</Form.Label>
-                  <Form.Control
-                    type="tel"
-                    value={formData.mobile_number}
-                    onChange={(e) =>
-                      setFormData({ ...formData, mobile_number: e.target.value })
-                    }
-                    isInvalid={!!fieldErrors.mobile_number}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {fieldErrors.mobile_number}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-              <Col md={6} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    isInvalid={!!fieldErrors.email}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {fieldErrors.email}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-            </Row>
+          <Row>
+            <Col md={6} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Admission Date *</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={formData.admission_date}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      admission_date: e.target.value,
+                    })
+                  }
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6} xs={12}>
+              <Form.Group className="mb-3">
+                <Form.Label>Academic Year</Form.Label>
+                <Form.Select
+                  value={formData.academic_year}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      academic_year: e.target.value,
+                    })
+                  }
+                >
+                  <option value="FY">FY</option>
+                  <option value="SY">SY</option>
+                  <option value="TY">TY</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+          </Row>
 
-            <Row>
-              <Col md={4} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Program *</Form.Label>
-                  <Form.Select
-                    value={formData.program_id}
-                    onChange={(e) =>
-                      setFormData({ ...formData, program_id: Number(e.target.value) })
-                    }
-                    disabled={programsLoading}
-                    isInvalid={!!fieldErrors.program_id}
-                    required
-                  >
-                    <option value="">Select Program</option>
-                    {programs.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.short_name}
-                      </option>
-                    ))}
-                  </Form.Select>
-                  <Form.Control.Feedback type="invalid">
-                    {fieldErrors.program_id}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-              <Col md={4} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Division *</Form.Label>
-                  <Form.Select
-                    value={formData.division_id}
-                    onChange={(e) =>
-                      setFormData({ ...formData, division_id: Number(e.target.value) })
-                    }
-                    isInvalid={!!fieldErrors.division_id}
-                    required
-                  >
-                    <option value="">Select Division</option>
-                    <option value={1}>A</option>
-                    <option value={2}>B</option>
-                  </Form.Select>
-                  <Form.Control.Feedback type="invalid">
-                    {fieldErrors.division_id}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-              <Col md={4} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Academic Session *</Form.Label>
-                  <Form.Select
-                    value={formData.academic_session_id}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        academic_session_id: Number(e.target.value),
-                      })
-                    }
-                    disabled={sessionsLoading}
-                    isInvalid={!!fieldErrors.academic_session_id}
-                    required
-                  >
-                    <option value="">Select Session</option>
-                    {academicSessions.map((s) => (
-                      <option key={s.id} value={s.id}>
-                        {s.session_name}
-                      </option>
-                    ))}
-                  </Form.Select>
-                  <Form.Control.Feedback type="invalid">
-                    {fieldErrors.academic_session_id}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-            </Row>
+          <Form.Group className="mb-3">
+            <Form.Label>Status</Form.Label>
+            <Form.Select
+              value={formData.student_status}
+              onChange={(e) =>
+                setFormData({ ...formData, student_status: e.target.value })
+              }
+            >
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="graduated">Graduated</option>
+            </Form.Select>
+          </Form.Group>
 
-            <Row>
-              <Col md={6} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Admission Date *</Form.Label>
-                  <Form.Control
-                    type="date"
-                    value={formData.admission_date}
-                    onChange={(e) =>
-                      setFormData({ ...formData, admission_date: e.target.value })
-                    }
-                    isInvalid={!!fieldErrors.admission_date}
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {fieldErrors.admission_date}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-              <Col md={6} xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Academic Year</Form.Label>
-                  <Form.Select
-                    value={formData.academic_year}
-                    onChange={(e) =>
-                      setFormData({ ...formData, academic_year: e.target.value })
-                    }
-                  >
-                    <option value="FY">FY</option>
-                    <option value="SY">SY</option>
-                    <option value="TY">TY</option>
-                  </Form.Select>
-                </Form.Group>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col xs={12}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Status</Form.Label>
-                  <Form.Select
-                    value={formData.student_status}
-                    onChange={(e) =>
-                      setFormData({ ...formData, student_status: e.target.value })
-                    }
-                  >
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                    <option value="graduated">Graduated</option>
-                  </Form.Select>
-                </Form.Group>
-              </Col>
-            </Row>
-
-            <div className="d-flex justify-content-end gap-2 flex-wrap mt-4">
-              <Button
-                style={{ backgroundColor: "red", border: "none" }}
-                onClick={() => navigate(-1)}
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                disabled={submitting}
-                style={{
-                  backgroundColor: "#04626a",
-                  border: "none",
-                  color: "#ffffff",
-                }}
-                onMouseEnter={(e) =>
-                  (e.target.style.backgroundColor = primaryHover)
-                }
-                onMouseLeave={(e) =>
-                  (e.target.style.backgroundColor = primaryColor)
-                }
-              >
-                {submitting ? (
-                  <Spinner size="sm" variant="light" />
-                ) : (
-                  "Update Student"
-                )}
-              </Button>
-            </div>
-          </Form>
-        </Card.Body>
-      </Card>
-    </div>
+          <div className="d-flex justify-content-end gap-2 flex-wrap mt-4">
+            <Button variant="secondary" onClick={() => navigate(-1)}>
+              Cancel
+            </Button>
+            <Button variant="primary" type="submit" disabled={submitting}>
+              {submitting ? <Spinner size="sm" /> : "Update Student"}
+            </Button>
+          </div>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 };
 

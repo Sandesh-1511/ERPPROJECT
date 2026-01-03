@@ -181,7 +181,7 @@ const AddExam = () => {
             </Form.Group>
 
             <div className="d-flex gap-2">
-              <Button variant="secondary" onClick={() => navigate("/dashboard/principal/exams")}>
+              <Button style={{backgroundColor:"#161717ff", border:"none"}}onClick={() => navigate("/dashboard/principal/exams")}>
                 Cancel
               </Button>
               <Button variant="primary" type="submit" disabled={submitting}>

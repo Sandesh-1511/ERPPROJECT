@@ -247,6 +247,177 @@
 
 
 
+// // src/pages/principal/PrincipalStudents.jsx
+// import React, { useState, useEffect } from "react";
+// import {
+//   Table,
+//   Button,
+//   Form,
+//   Row,
+//   Col,
+//   Card,
+//   Spinner,
+//   Alert,
+// } from "react-bootstrap";
+// import { Link } from "react-router-dom";
+
+// // ✅ FIXED: Removed trailing spaces
+// const API_DEFAULT = "https://serp.lemmecode.in/schoolerp  ";
+// const API_BASE = API_DEFAULT.trim(); // Extra safety
+
+// const PrincipalStudents = () => {
+//   const [students, setStudents] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
+//   const [search, setSearch] = useState("");
+
+//   const token = localStorage.getItem("token");
+
+//   const safeFetchJSON = async (url, options = {}) => {
+//     const res = await fetch(url.trim(), {
+//       ...options,
+//       headers: {
+//         Accept: "application/json",
+//         "Content-Type": "application/json",
+//         ...(token ? { Authorization: `Bearer ${token}` } : {}),
+//         ...(options.headers || {}),
+//       },
+//     });
+//     const contentType = res.headers.get("content-type");
+//     if (!contentType || !contentType.includes("application/json")) {
+//       const text = await res.text();
+//       throw new Error(
+//         `Expected JSON but received HTML. Status: ${
+//           res.status
+//         }. Preview: ${text.substring(0, 100)}...`
+//       );
+//     }
+//     return await res.json();
+//   };
+
+//   const fetchStudents = async () => {
+//     setLoading(true);
+//     setError("");
+//     try {
+//       const json = await safeFetchJSON(`${API_BASE}/api/students`);
+//       if (json.success && Array.isArray(json.data?.data)) {
+//         const enriched = json.data.data.map((s) => ({
+//           ...s,
+//           full_name: [s.first_name, s.middle_name, s.last_name]
+//             .filter(Boolean)
+//             .join(" "),
+//           class_section: `${s.program?.name || "—"} - ${
+//             s.division?.name || "—"
+//           }`,
+//         }));
+//         setStudents(enriched);
+//       } else {
+//         throw new Error(json.message || "Invalid API response");
+//       }
+//     } catch (err) {
+//       console.error("Fetch Students Error:", err);
+//       setError(`Failed to load students: ${err.message}`);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchStudents();
+//   }, []);
+
+//   const filtered = students.filter(
+//     (s) =>
+//       s.full_name.toLowerCase().includes(search.toLowerCase()) ||
+//       (s.admission_number && s.admission_number.includes(search)) ||
+//       (s.roll_number && s.roll_number.includes(search))
+//   );
+
+//   return (
+//     <Card className="w-100">
+//       <Card.Body>
+//         {/* ✅ Responsive header: stacked on mobile, inline on desktop */}
+//         <div className="d-flex justify-content-between align-items-center mb-3 flex-column flex-md-row gap-2">
+//           <h5 className="m-0">Students</h5>
+//           <Link to="/dashboard/principal/students/add">
+//             <Button variant="primary">
+//               + Add Student
+//             </Button>
+//           </Link>
+//         </div>
+
+//         {/* ✅ Full-width search on all screens */}
+//         <Form.Control
+//           placeholder="Search student by name, admission no, or roll no..."
+//           className="mb-3 w-100"
+//           value={search}
+//           onChange={(e) => setSearch(e.target.value)}
+//         />
+
+//         {loading && (
+//           <Spinner animation="border" className="d-block mx-auto my-3" />
+//         )}
+//         {error && <Alert variant="danger">{error}</Alert>}
+
+//         {!loading && !error && (
+//           <div className="table-responsive">
+//             <Table bordered hover className="align-middle">
+//               <thead>
+//                 <tr>
+//                   <th>Sr.no</th>
+//                   <th>Name</th>
+//                   <th>Class</th>
+//                   <th>Admission No</th>
+//                   <th>Roll No</th>
+//                   <th className="text-center">Actions</th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 {filtered.length > 0 ? (
+//                   filtered.map((s, i) => (
+//                     <tr key={s.id}>
+//                       <td>{i + 1}</td>
+//                       <td>{s.full_name}</td>
+//                       <td>{s.class_section}</td>
+//                       <td>{s.admission_number || "—"}</td>
+//                       <td>{s.roll_number || "—"}</td>
+//                       <td className="text-center">
+//                         {/* ✅ Responsive action buttons */}
+//                         <div className="d-flex justify-content-center gap-1 flex-wrap">
+//                           <Link to={`/dashboard/principal/student-view/${s.id}`}>
+//                             <Button size="sm" variant="info">
+//                               View
+//                             </Button>
+//                           </Link>
+//                           <Link to={`/dashboard/principal/students/edit/${s.id}`}>
+//                             <Button size="sm" variant="warning">
+//                               Edit
+//                             </Button>
+//                           </Link>
+//                         </div>
+//                       </td>
+//                     </tr>
+//                   ))
+//                 ) : (
+//                   <tr>
+//                     <td colSpan="6" className="text-center text-muted py-3">
+//                       No students found.
+//                     </td>
+//                   </tr>
+//                 )}
+//               </tbody>
+//             </Table>
+//           </div>
+//         )}
+//       </Card.Body>
+//     </Card>
+//   );
+// };
+
+// export default PrincipalStudents;
+
+
+
 // src/pages/principal/PrincipalStudents.jsx
 import React, { useState, useEffect } from "react";
 import {
