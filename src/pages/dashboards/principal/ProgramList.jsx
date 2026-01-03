@@ -101,8 +101,8 @@ const ProgramList = () => {
       <div className="container mt-5">
         <Alert variant="danger">{error}</Alert>
         <div className="text-center">
-          <Link to="/dashboard/principal/programs">
-            <Button variant="primary">← Back to Programs</Button>
+          <Link to="/dashboard/principal/departments">
+            <Button variant="primary">← Back to Departments</Button>
           </Link>
         </div>
       </div>
@@ -128,7 +128,7 @@ const ProgramList = () => {
           {program.name}
         </h2>
         <div>
-          <Link to="/dashboard/principal/programs">
+          <Link to="/dashboard/principal/departments">
             <Button variant="outline-secondary">← Back to List</Button>
           </Link>
           <Link to={`/dashboard/principal/programs/edit/${program.id}`} className="ms-2">
