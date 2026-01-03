@@ -1499,7 +1499,7 @@ const PrincipalFees = () => {
     <Container fluid className="py-4">
       <div className="d-flex justify-content-between align-items-center mb-4 flex-column flex-md-row gap-2">
         <h2 className="mb-0">Fee Management</h2>
-        <Button variant="primary" size="sm">+ Collect Fee</Button>
+        <Button style={{backgroundColor:"#04626a", border:"none"}} size="sm">+ Collect Fee</Button>
       </div>
 
       <Form.Control
@@ -1576,7 +1576,7 @@ const PrincipalFees = () => {
             <Button variant="outline-secondary" size="sm" onClick={exportToExcel}>
               Export
             </Button>
-            <Button variant="primary" size="sm">+ Collect Fee</Button>
+            <Button style={{backgroundColor:"#04626a", border:"none"}} size="sm">+ Collect Fee</Button>
           </div>
         </Card.Header>
         <Card.Body>
@@ -1622,7 +1622,7 @@ const PrincipalFees = () => {
                         </td>
                         <td>
                           <div className="d-flex flex-column flex-md-row gap-1">
-                            <Button variant="outline-primary" size="sm" onClick={() => generateReceiptPDF(p)}>
+                            <Button variant="outline-success" size="sm" onClick={() => generateReceiptPDF(p)}>
                               Receipt
                             </Button>
                             <Button variant="outline-secondary" size="sm" onClick={() => exportRowToExcel(p)}>
@@ -1687,7 +1687,7 @@ const PrincipalFees = () => {
                           </span>
                         </td>
                         <td>
-                          <Button variant="primary" size="sm" onClick={() => handleCollectFee(f.id)} className="w-100 w-md-auto">
+                          <Button style={{backgroundColor:"#04626a", border:"none"}} size="sm" onClick={() => handleCollectFee(f.id)} className="w-100 w-md-auto">
                             <FaMoneyBillWave className="me-1" /> Collect
                           </Button>
                         </td>

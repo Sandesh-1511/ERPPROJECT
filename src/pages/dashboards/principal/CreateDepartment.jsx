@@ -162,10 +162,10 @@ const CreateDepartment = () => {
             </Form.Group>
 
             <div className="d-flex gap-2">
-              <Button variant="secondary" onClick={() => navigate("/dashboard/principal/departments")}>
+              <Button variant="danger" onClick={() => navigate("/dashboard/principal/departments")}>
                 Cancel
               </Button>
-              <Button variant="primary" type="submit" disabled={submitting}>
+              <Button style={{backgroundColor: "#04626a", border: "none"}} type="submit" disabled={submitting}>
                 {submitting ? <Spinner size="sm" /> : "Create Department"}
               </Button>
             </div>

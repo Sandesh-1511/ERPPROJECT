@@ -100,7 +100,7 @@ const PrincipalDeptsAndPrograms = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Departments & Programs</h2>
         <Link to="/dashboard/principal/departments/new">
-          <Button variant="primary">+ Add Department</Button>
+          <Button style={{backgroundColor: "#04626a", border: "none"}}>+ Add Department</Button>
         </Link>
       </div>
 
@@ -181,7 +181,7 @@ const PrincipalDeptsAndPrograms = () => {
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <div>
                   <h6 className="mb-0">
-                    <Link to={`/dashboard/principal/departments/${dept.id}`}>
+                    <Link style={{color: "#04626a"}} to={`/dashboard/principal/departments/${dept.id}`}>
                       {dept.name}
                     </Link>
                   </h6>
@@ -191,12 +191,12 @@ const PrincipalDeptsAndPrograms = () => {
                 </div>
                 <div>
                   <Link to={`/dashboard/principal/departments/${dept.id}`}>
-                    <Button size="sm" variant="outline-primary" className="me-2">
+                    <Button size="sm" style={{backgroundColor: "rgba(4, 138, 150, 1)", color: "white", border: "none"}} className="me-2">
                       View
                     </Button>
                   </Link>
                   <Link to={`/dashboard/principal/departments/edit/${dept.id}`}>
-                    <Button size="sm" variant="outline-warning" className="me-2">
+                    <Button size="sm" style={{backgroundColor: "rgba(79, 88, 88, 1)",border: "none"}} className="me-2">
                       Edit
                     </Button>
                   </Link>
@@ -221,10 +221,10 @@ const PrincipalDeptsAndPrograms = () => {
                           </div>
                           <div className="mt-3 d-flex gap-2">
                             <Link to={`/dashboard/principal/programs/${prog.id}`}>
-                              <Button size="sm" variant="outline-primary">View</Button>
+                              <Button size="sm" style={{backgroundColor: "rgba(4, 138, 150, 1)", color: "white", border: "none"}}>View</Button>
                             </Link>
                             <Link to={`/dashboard/principal/programs/edit/${prog.id}`}>
-                              <Button size="sm" variant="outline-warning">Edit</Button>
+                              <Button size="sm" style={{backgroundColor: "rgba(79, 88, 88, 1)", border: "none"}}>Edit</Button>
                             </Link>
                           </div>
                         </Card.Body>
