@@ -289,7 +289,7 @@ const EditProgram = () => {
               <Button variant="secondary" onClick={() => navigate(`/dashboard/principal/programs/${id}`)}>
                 Cancel
               </Button>
-              <Button variant="primary" type="submit" disabled={submitting}>
+              <Button style={{backgroundColor: "#04626a", border: "none"}} type="submit" disabled={submitting}>
                 {submitting ? <Spinner size="sm" /> : "Update Program"}
               </Button>
             </div>

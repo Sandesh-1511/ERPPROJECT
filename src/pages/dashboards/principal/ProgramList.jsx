@@ -132,7 +132,7 @@ const ProgramList = () => {
             <Button variant="outline-secondary">← Back to List</Button>
           </Link>
           <Link to={`/dashboard/principal/programs/edit/${program.id}`} className="ms-2">
-            <Button variant="warning">
+            <Button style={{backgroundColor: "#04626a", border: "none"}}>
               <FaEdit className="me-1" /> Edit
             </Button>
           </Link>

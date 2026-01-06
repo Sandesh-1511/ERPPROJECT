@@ -223,7 +223,7 @@ const EditExam = () => {
               <Button variant="secondary" onClick={() => navigate("/dashboard/principal/exams")}>
                 Cancel
               </Button>
-              <Button variant="primary" type="submit" disabled={submitting}>
+              <Button style={{backgroundColor: "#04626a", border: "none"}} type="submit" disabled={submitting}>
                 {submitting ? "Updating..." : "Update Exam"}
               </Button>
             </div>

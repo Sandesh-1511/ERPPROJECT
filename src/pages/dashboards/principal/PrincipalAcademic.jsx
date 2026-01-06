@@ -183,7 +183,7 @@ const PrincipalAcademic = () => {
     <Container fluid className="py-4 px-3 px-md-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h4>Academic Sessions</h4>
-        <Button variant="primary" onClick={handleShowAdd}>
+        <Button style={{backgroundColor: "#04626a", border: "none"}} onClick={handleShowAdd}>
           + Add Session
         </Button>
       </div>
@@ -231,7 +231,7 @@ const PrincipalAcademic = () => {
                       </td>
                       <td className="text-center">
                         <Button
-                          variant="warning"
+                          style={{backgroundColor: "#04626a", border: "none"}}
                           size="sm"
                           className="me-2"
                           onClick={() => handleShowEdit(s)}
@@ -329,7 +329,7 @@ const PrincipalAcademic = () => {
               <Button variant="secondary" onClick={() => setShowModal(false)}>
                 Cancel
               </Button>
-              <Button variant="primary" type="submit" disabled={submitting}>
+              <Button style={{backgroundColor: "#04626a", border: "none"}} type="submit" disabled={submitting}>
                 {submitting ? <Spinner size="sm" /> : editMode ? "Update" : "Add"}
               </Button>
             </div>
