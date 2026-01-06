@@ -65,6 +65,7 @@ import AddStudent from "./pages/dashboards/principal/AddStudent";
 import EditStudent from "./pages/dashboards/principal/EditStudent";
 import EditExam from "./pages/dashboards/principal/EditExam";
 import AddExam from "./pages/dashboards/principal/AddExam";
+import CollectFeeForm from "./pages/dashboards/principal/CollectFeeForm";
 
 function App() {
   return (
@@ -135,6 +136,7 @@ function App() {
           <Route path="programs/new" element={<CreateProgram />} />
           <Route path="programs/:id" element={<ProgramList />} />
           <Route path="programs/edit/:id" element={<EditProgram />} />
+          <Route path="/dashboard/principal/fees/collect" element={<CollectFeeForm />} />
         </Route>
 
         {/* Teacher */}
